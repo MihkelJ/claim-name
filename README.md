@@ -1,6 +1,6 @@
 # Claim Name 🎉
 
-This web3 application allows communities to distribute subdomains of their ENS names to members they follow.
+This Web3 application enables communities to grant ENS subdomains to members they follow, streamlining identity and membership management
 
 ## How It Works 🛠️
 
