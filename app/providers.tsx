@@ -55,7 +55,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
           <JustaNameProvider config={justaNameConfig}>
             <ThemeProvider
               attribute="class"
-              defaultTheme="light"
               enableSystem
               disableTransitionOnChange
             >
