@@ -7,14 +7,14 @@ import { mainnet } from 'viem/chains';
 /**
  * Checks if a user follows the top domain
  */
-export async function checkFollowerState(address?: string): Promise<boolean> {
+export async function fetchFollowerState(address?: string) {
   assert(Boolean(address), 'Address is required');
 
   const response = await fetch(
     `https://api.ethfollow.xyz/api/v1/users/${CONSTANTS.ENS_DOMAIN}/${address}/followerState`,
   );
   const followerState = (await response.json()) as FollowerState;
-  return followerState.state.follow;
+  return followerState;
 }
 
 /**

@@ -1,6 +1,6 @@
 import CONSTANTS from '@/constants';
 import { addSubnameSchema } from '@/lib/schemas/subname';
-import { checkExistingSubname, checkFollowerState, registerSubname } from '@/lib/services/subname';
+import { checkExistingSubname, fetchFollowerState, registerSubname } from '@/lib/services/subname';
 import { handleApiError, parseRequestBody } from '@/lib/utils/api';
 import { NextRequest } from 'next/server';
 
@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
       validatedRequest;
 
     // 2. Check follower state
-    const isFollowing = await checkFollowerState(address);
+    const isFollowing = await fetchFollowerState(address);
     if (!isFollowing) {
       throw new Error('You must follow the top domain to register a subdomain');
     }

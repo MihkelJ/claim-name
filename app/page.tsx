@@ -9,16 +9,17 @@ import { RegistrationForm } from './components/RegistrationForm';
 import { SubnameManagementForm } from './components/SubnameManagementForm';
 import ENSProfileHeader from '@/components/ENSProfileHeader';
 import CONSTANTS from '@/constants';
-import { checkFollowerState, getFollowerSubdomains } from '@/lib/services/subname';
+import { fetchFollowerState, getFollowerSubdomains } from '@/lib/services/subname';
 import { useQuery } from '@tanstack/react-query';
+import { isAddressEqual } from 'viem';
 import { useAccount } from 'wagmi';
 
 export default function SubnameRegistrationPage() {
   const { address } = useAccount();
 
-  const { data: isFollowing, isLoading: isLoadingFollowerStatus } = useQuery({
-    queryKey: ['isFollowing', address],
-    queryFn: async () => await checkFollowerState(address),
+  const { data: followerState, isLoading: isLoadingFollowerStatus } = useQuery({
+    queryKey: ['followerState', address],
+    queryFn: async () => await fetchFollowerState(address),
     enabled: !!address,
   });
 
@@ -33,29 +34,33 @@ export default function SubnameRegistrationPage() {
   );
 
   const hasRegisteredSubname = !!existingSubname;
+  const isOwner =
+    address && followerState?.addressUser
+      ? isAddressEqual(followerState?.addressUser, address)
+      : false;
 
   return (
     <main className="container mx-auto px-4 min-h-screen py-10">
       <div className="max-w-3xl mx-auto space-y-6">
         <ENSProfileHeader />
+        {!address && <DisconnectedState />}
 
-        {address ? (
+        {address && <WalletCard address={address} />}
+
+        {!isOwner && address && (
           <>
-            <WalletCard address={address} />
             <FollowStatusCard
               isLoading={isLoadingFollowerStatus}
-              isFollowing={isFollowing}
+              isFollowing={followerState?.state.follow}
               address={address}
             />
 
-            {isFollowing && !hasRegisteredSubname && <RegistrationForm />}
+            {followerState?.state.follow && !hasRegisteredSubname && <RegistrationForm />}
 
             {hasRegisteredSubname && <SubnameManagementForm existingSubname={existingSubname} />}
 
             {hasRegisteredSubname && <RevokeSubnameCard subname={existingSubname?.ens} />}
           </>
-        ) : (
-          <DisconnectedState />
         )}
       </div>
     </main>

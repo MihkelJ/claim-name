@@ -1,6 +1,8 @@
+import { Address } from 'viem';
+
 export interface FollowerState {
-  addressUser: string;
-  addressFollower: string;
+  addressUser: Address;
+  addressFollower: Address;
   state: {
     follow: boolean;
     block: boolean;
@@ -24,7 +26,7 @@ export interface Subname {
     texts: { key: string; value: string }[];
     coins: { id: number; value: string; name: string }[];
     contentHash: string;
-    resolverAddress: string;
+    resolverAddress: Address;
   };
   claimedAt: string;
   isClaimed: boolean;
