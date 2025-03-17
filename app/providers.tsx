@@ -5,7 +5,7 @@ import { JustaNameProvider, JustaNameProviderConfig } from '@justaname.id/react'
 import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import '@rainbow-me/rainbowkit/styles.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { TransactionProvider } from 'ethereum-identity-kit';
+import { TransactionModal, TransactionProvider } from 'ethereum-identity-kit';
 import 'ethereum-identity-kit/css';
 import { ThemeProvider } from 'next-themes';
 import { createConfig, http, WagmiProvider } from 'wagmi';
@@ -58,7 +58,10 @@ export function Providers({ children }: { children: React.ReactNode }) {
               enableSystem
               disableTransitionOnChange
             >
-              <TransactionProvider>{children}</TransactionProvider>
+              <TransactionProvider batchTransactions={true}>
+                <TransactionModal />
+                {children}
+              </TransactionProvider>
             </ThemeProvider>
           </JustaNameProvider>
         </RainbowKitProvider>
