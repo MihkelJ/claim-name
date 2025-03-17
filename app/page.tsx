@@ -4,6 +4,7 @@ import { FollowStatusCard } from '../components/FollowStatusCard';
 import RevokeSubnameCard from '../components/RevokeSubnameCard';
 import { WalletCard } from '../components/WalletCard';
 import type { SubnameRoot } from '../types/subname';
+import AllMembersCard from './components/AllMembersCard';
 import { DisconnectedState } from './components/DisconnectedState';
 import { RegistrationForm } from './components/RegistrationForm';
 import { SubnameManagementForm } from './components/SubnameManagementForm';
@@ -60,6 +61,12 @@ export default function SubnameRegistrationPage() {
             {hasRegisteredSubname && <SubnameManagementForm existingSubname={existingSubname} />}
 
             {hasRegisteredSubname && <RevokeSubnameCard subname={existingSubname?.ens} />}
+          </>
+        )}
+
+        {isOwner && address && (
+          <>
+            <AllMembersCard />
           </>
         )}
       </div>
