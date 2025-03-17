@@ -1,12 +1,14 @@
+import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAccountModal } from '@rainbow-me/rainbowkit';
 import { PencilIcon } from 'lucide-react';
 
 interface WalletCardProps {
   address: string;
+  isOwner: boolean;
 }
 
-export function WalletCard({ address }: WalletCardProps) {
+export function WalletCard({ address, isOwner }: WalletCardProps) {
   const { openAccountModal } = useAccountModal();
 
   return (
@@ -27,6 +29,14 @@ export function WalletCard({ address }: WalletCardProps) {
             <span className="text-xs font-mono bg-secondary px-2 py-1 rounded-md">
               {`${address.slice(0, 6)}...${address.slice(-4)}`}
             </span>
+            {isOwner && (
+              <Badge
+                variant="success"
+                className="text-xs"
+              >
+                Owner
+              </Badge>
+            )}
           </div>
         </div>
       </CardContent>

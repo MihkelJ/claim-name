@@ -44,9 +44,15 @@ export default function SubnameRegistrationPage() {
     <main className="container mx-auto px-4 min-h-screen py-10">
       <div className="max-w-3xl mx-auto space-y-6">
         <ENSProfileHeader />
+
         {!address && <DisconnectedState />}
 
-        {address && <WalletCard address={address} />}
+        {address && (
+          <WalletCard
+            isOwner={isOwner}
+            address={address}
+          />
+        )}
 
         {!isOwner && address && (
           <>
