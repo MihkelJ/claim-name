@@ -6,6 +6,7 @@ import { useFollowAddress } from '@/hooks/useFollowAddress';
 import { Scanner } from '@yudiel/react-qr-scanner';
 import { Check, QrCode, X } from 'lucide-react';
 import { useState } from 'react';
+import { isAddress } from 'viem';
 
 export function FollowAddressCard() {
   const { followAddress } = useFollowAddress();
@@ -17,8 +18,21 @@ export function FollowAddressCard() {
     setShowFeedback(false);
   };
 
-  const handleQrScan = (address: string) => {
-    followAddress(address);
+  const handleQrScan = (scannedString: string) => {
+    // Good if it's just an address
+    if (isAddress(scannedString)) {
+      followAddress(scannedString);
+    }
+
+    // Good if it's a URL - `${window.location.origin}/${address}`
+    if (scannedString.startsWith(`${window.location.origin}/`)) {
+      const address = scannedString.split('/').pop();
+      if (address && isAddress(address)) {
+        followAddress(address);
+      }
+    }
+
+    // TODO: handle other cases
     setShowFeedback(true);
     setTimeout(() => setShowFeedback(false), 1500);
   };
