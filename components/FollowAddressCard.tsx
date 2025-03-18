@@ -19,9 +19,8 @@ export function FollowAddressCard() {
 
   const handleQrScan = (address: string) => {
     followAddress(address);
-    setScannerActive(false);
     setShowFeedback(true);
-    setTimeout(() => setShowFeedback(false), 500);
+    setTimeout(() => setShowFeedback(false), 1500);
   };
 
   return (
