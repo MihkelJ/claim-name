@@ -4,19 +4,24 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useFollowAddress } from '@/hooks/useFollowAddress';
 import { Scanner } from '@yudiel/react-qr-scanner';
-import { QrCode, X } from 'lucide-react';
+import { Check, QrCode, X } from 'lucide-react';
 import { useState } from 'react';
 
 export function FollowAddressCard() {
   const { followAddress } = useFollowAddress();
   const [scannerActive, setScannerActive] = useState(false);
+  const [showFeedback, setShowFeedback] = useState(false);
 
   const toggleScanner = () => {
     setScannerActive(!scannerActive);
+    setShowFeedback(false);
   };
 
   const handleQrScan = (address: string) => {
     followAddress(address);
+    setScannerActive(false);
+    setShowFeedback(true);
+    setTimeout(() => setShowFeedback(false), 500);
   };
 
   return (
@@ -39,6 +44,15 @@ export function FollowAddressCard() {
         <CardContent>
           <div className="w-full h-full aspect-square">
             <Scanner onScan={(result) => handleQrScan(result[0].rawValue)} />
+          </div>
+        </CardContent>
+      )}
+
+      {showFeedback && (
+        <CardContent>
+          <div className="flex items-center gap-2 p-2 bg-green-100 dark:bg-green-900/20 rounded-lg text-green-700 dark:text-green-300">
+            <Check className="h-4 w-4" />
+            <span className="text-sm">Added!</span>
           </div>
         </CardContent>
       )}
