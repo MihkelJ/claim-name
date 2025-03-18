@@ -6,6 +6,7 @@ import CONSTANTS from '@/constants';
 import useMembers from '@/hooks/useMembers';
 import { truncateAddress, useTransactions } from 'ethereum-identity-kit';
 import { MdPerson } from 'react-icons/md';
+import { isAddress } from 'viem';
 import { useAccount } from 'wagmi';
 
 const AllMembersCard = () => {
@@ -35,8 +36,10 @@ const AllMembersCard = () => {
       <CardContent>
         <p className="text-sm text-muted-foreground">Pending Transactions</p>
         {pendingTxs.map((tx) => {
-          const address = tx.args[1][0];
-          const cleanAddress = address.replace(/^0x01010101/, '0x');
+          const address = tx.args[1][0] as string | undefined;
+          const cleanAddress = address?.replace(/^0x01010101/, '0x');
+
+          if (!cleanAddress || !isAddress(cleanAddress)) return null;
 
           return (
             <div

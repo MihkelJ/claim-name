@@ -48,8 +48,10 @@ export default function SubnameViewPage({ params }: { params: { address: Address
       : false;
 
   const isPending = pendingTxs.some((tx) => {
-    const address = tx.args[1][0];
-    const cleanAddress = address.replace(/^0x01010101/, '0x');
+    const address = tx.args[1][0] as string | undefined;
+    const cleanAddress = address?.replace(/^0x01010101/, '0x');
+
+    if (!cleanAddress || !isAddress(cleanAddress)) return false;
 
     return isAddressEqual(cleanAddress, params.address);
   });
