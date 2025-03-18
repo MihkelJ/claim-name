@@ -48,6 +48,7 @@ export default function SubnameViewPage({ params }: { params: { address: Address
       : false;
 
   const isPending = pendingTxs.some((tx) => {
+    console.log({ tx });
     const address = tx.args[1][0] as string | undefined;
     const cleanAddress = address?.replace(/^0x01010101/, '0x');
 
