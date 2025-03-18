@@ -25,7 +25,7 @@ export default function SubnameRegistrationPage() {
     enabled: !!address,
   });
 
-  const { data: subnameData, isLoading: isLoadingSubnameData } = useQuery<SubnameRoot>({
+  const { data: subnameData } = useQuery<SubnameRoot>({
     queryKey: ['subnames', address],
     queryFn: async () => await getFollowerSubdomains(address),
     enabled: !!address,
