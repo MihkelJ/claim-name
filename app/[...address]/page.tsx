@@ -1,7 +1,7 @@
 'use client';
 
-import { DisconnectedState } from '../components/DisconnectedState';
-import { InfoCard } from '../components/InfoCard';
+import { DisconnectedState } from '../../components/DisconnectedState';
+import { InfoCard } from '../../components/InfoCard';
 import ENSProfileHeader from '@/components/ENSProfileHeader';
 import { WalletCard } from '@/components/WalletCard';
 import CONSTANTS from '@/constants';
@@ -72,6 +72,19 @@ export default function SubnameRegistrationPage() {
         {hasRegisteredSubname && (
           <InfoCard
             title="You have a subdomain"
+            description="You can manage your subdomain membership in the home page."
+            action={{
+              label: 'Manage',
+              onClick: () => {
+                router.push(`/`);
+              },
+            }}
+          />
+        )}
+
+        {isOwner && !hasRegisteredSubname && (
+          <InfoCard
+            title="You are the owner"
             description="You can manage your subdomain membership in the home page."
             action={{
               label: 'Manage',

@@ -1,13 +1,13 @@
 'use client';
 
+import AllMembersCard from '../components/AllMembersCard';
+import { DisconnectedState } from '../components/DisconnectedState';
 import { FollowStatusCard } from '../components/FollowStatusCard';
+import { RegistrationForm } from '../components/RegistrationForm';
 import RevokeSubnameCard from '../components/RevokeSubnameCard';
+import { SubnameManagementForm } from '../components/SubnameManagementForm';
 import { WalletCard } from '../components/WalletCard';
 import type { SubnameRoot } from '../types/subname';
-import AllMembersCard from './components/AllMembersCard';
-import { DisconnectedState } from './components/DisconnectedState';
-import { RegistrationForm } from './components/RegistrationForm';
-import { SubnameManagementForm } from './components/SubnameManagementForm';
 import ENSProfileHeader from '@/components/ENSProfileHeader';
 import { FollowAddressCard } from '@/components/FollowAddressCard';
 import CONSTANTS from '@/constants';
