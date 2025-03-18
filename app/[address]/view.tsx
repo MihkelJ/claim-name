@@ -103,7 +103,7 @@ export default function SubnameViewPage({ params }: { params: { address: Address
             title={isPending ? 'Adding member...' : 'You can add this address as member'}
             description="You can manage your subdomain membership in the home page."
             action={{
-              label: isPending ? 'Adding...' : 'Add Member',
+              label: isPending ? 'Complete' : 'Add Member',
               onClick: () => {
                 if (isPending) {
                   setTxModalOpen(true);

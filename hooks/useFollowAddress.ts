@@ -1,4 +1,4 @@
-import { formatListOpsTransaction, useTransactions } from 'ethereum-identity-kit';
+import { listOpAddListRecord, useTransactions } from 'ethereum-identity-kit';
 import { isAddress } from 'viem';
 import { useAccount } from 'wagmi';
 
@@ -17,25 +17,13 @@ export type ListOpcode = (typeof Opcode)[keyof typeof Opcode];
 
 export function useFollowAddress() {
   const { address: connectedAddress } = useAccount();
-  const { addListOpsTransaction, pendingTxs, nonce, selectedChainId } = useTransactions();
+  const { addListOpsTransaction, pendingTxs } = useTransactions();
 
   const followAddress = (address: string) => {
     if (!isAddress(address)) throw new Error('Invalid address');
     if (!connectedAddress) throw new Error('No connected address');
 
-    addListOpsTransaction(
-      formatListOpsTransaction({
-        listOps: [
-          {
-            opcode: Opcode.FOLLOW,
-            data: address,
-          },
-        ],
-        chainId: selectedChainId,
-        nonce,
-        connectedAddress,
-      }),
-    );
+    addListOpsTransaction([listOpAddListRecord(address)]);
   };
 
   return {
