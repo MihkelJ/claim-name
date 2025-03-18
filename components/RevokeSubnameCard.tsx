@@ -11,7 +11,7 @@ import CONSTANTS from '@/constants';
 import { useRevokeSubname } from '@justaname.id/react';
 import { Loader2, TrashIcon } from 'lucide-react';
 
-const RevokeSubnameCard = ({ subname }: { subname: string }) => {
+const RevokeSubnameCard = ({ subname }: { subname?: string }) => {
   const { revokeSubname, isRevokeSubnamePending } = useRevokeSubname();
 
   return (
@@ -29,6 +29,8 @@ const RevokeSubnameCard = ({ subname }: { subname: string }) => {
           variant="destructive"
           disabled={isRevokeSubnamePending}
           onClick={async () => {
+            if (!subname) return;
+
             const username = subname.replace(`.${CONSTANTS.ENS_DOMAIN}`, '');
 
             await revokeSubname({
