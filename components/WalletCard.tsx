@@ -1,7 +1,7 @@
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAccountModal } from '@rainbow-me/rainbowkit';
-import { PencilIcon } from 'lucide-react';
+import { IoWalletOutline } from 'react-icons/io5';
 
 interface WalletCardProps {
   address: string;
@@ -19,7 +19,7 @@ export function WalletCard({ address, isOwner }: WalletCardProps) {
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <CardTitle className="text-base">Wallet Connection</CardTitle>
-          <PencilIcon className="h-3.5 w-3.5 text-muted-foreground" />
+          <IoWalletOutline className="h-3.5 w-3.5 text-muted-foreground" />
         </div>
       </CardHeader>
       <CardContent className="pt-0">

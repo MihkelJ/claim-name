@@ -17,24 +17,6 @@ export function FollowStatusCard({ isLoading, isFollowing, address }: FollowStat
   const [copied, setCopied] = useState(false);
   const followProtocolUrl = `${window.location.origin}/${address}`;
 
-  const handleFollowShare = async () => {
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: 'Follow on Ethereum Follow Protocol',
-          text: 'Follow this account to become a member',
-          url: followProtocolUrl,
-        });
-      } catch {
-        // User cancelled or share failed, fall back to opening the URL
-        window.open(followProtocolUrl, '_blank', 'noopener,noreferrer');
-      }
-    } else {
-      // Share API not supported, fall back to opening the URL
-      window.open(followProtocolUrl, '_blank', 'noopener,noreferrer');
-    }
-  };
-
   const handleCopyLink = async () => {
     try {
       await navigator.clipboard.writeText(followProtocolUrl);
@@ -80,7 +62,8 @@ export function FollowStatusCard({ isLoading, isFollowing, address }: FollowStat
                   className="w-full h-auto max-w-[300px]"
                 />
               </div>
-              <div className="flex gap-2 w-full sm:w-auto">
+
+              <div className="flex gap-2 w-full mx-auto justify-center">
                 <Button
                   onClick={handleCopyLink}
                   variant="outline"

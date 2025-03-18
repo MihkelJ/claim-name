@@ -9,7 +9,7 @@ import { TransactionModal, TransactionProvider } from 'ethereum-identity-kit';
 import 'ethereum-identity-kit/css';
 import { ThemeProvider } from 'next-themes';
 import { createConfig, http, WagmiProvider } from 'wagmi';
-import { mainnet, sepolia } from 'wagmi/chains';
+import { base, mainnet, sepolia } from 'wagmi/chains';
 
 export const queryClient = new QueryClient();
 
@@ -19,9 +19,10 @@ const { connectors } = getDefaultWallets({
 });
 
 const config = createConfig({
-  chains: [mainnet, sepolia],
+  chains: [mainnet, sepolia, base],
   transports: {
     [mainnet.id]: http(),
+    [base.id]: http(),
     [sepolia.id]: http(),
   },
   connectors,

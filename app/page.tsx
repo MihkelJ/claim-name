@@ -9,6 +9,7 @@ import { DisconnectedState } from './components/DisconnectedState';
 import { RegistrationForm } from './components/RegistrationForm';
 import { SubnameManagementForm } from './components/SubnameManagementForm';
 import ENSProfileHeader from '@/components/ENSProfileHeader';
+import { FollowAddressCard } from '@/components/FollowAddressCard';
 import CONSTANTS from '@/constants';
 import { fetchFollowerState, getFollowerSubdomains } from '@/lib/services/subname';
 import { useQuery } from '@tanstack/react-query';
@@ -24,7 +25,7 @@ export default function SubnameRegistrationPage() {
     enabled: !!address,
   });
 
-  const { data: subnameData } = useQuery<SubnameRoot>({
+  const { data: subnameData, isLoading: isLoadingSubnameData } = useQuery<SubnameRoot>({
     queryKey: ['subnames', address],
     queryFn: async () => await getFollowerSubdomains(address),
     enabled: !!address,
@@ -36,7 +37,7 @@ export default function SubnameRegistrationPage() {
 
   const hasRegisteredSubname = !!existingSubname;
   const isOwner =
-    address && followerState?.addressUser
+    address && followerState?.addressUser && !isLoadingFollowerStatus
       ? isAddressEqual(followerState?.addressUser, address)
       : false;
 
@@ -72,6 +73,7 @@ export default function SubnameRegistrationPage() {
 
         {isOwner && address && (
           <>
+            <FollowAddressCard />
             <AllMembersCard />
           </>
         )}
