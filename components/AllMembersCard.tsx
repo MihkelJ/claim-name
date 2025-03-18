@@ -4,7 +4,12 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import CONSTANTS from '@/constants';
 import useMembers from '@/hooks/useMembers';
-import { truncateAddress, useTransactions } from 'ethereum-identity-kit';
+import {
+  extractAddressAndTag,
+  getPendingTxListOps,
+  truncateAddress,
+  useTransactions,
+} from 'ethereum-identity-kit';
 import { MdPerson } from 'react-icons/md';
 import { isAddress } from 'viem';
 import { useAccount } from 'wagmi';
@@ -35,20 +40,19 @@ const AllMembersCard = () => {
 
       <CardContent>
         <p className="text-sm text-muted-foreground">Pending Transactions</p>
-        {pendingTxs.map((tx) => {
-          const address = tx.args[1][0] as string | undefined;
-          const cleanAddress = address?.replace(/^0x01010101/, '0x');
+        {getPendingTxListOps(pendingTxs).map((tx) => {
+          const { address } = extractAddressAndTag(tx.data);
 
-          if (!cleanAddress || !isAddress(cleanAddress)) return null;
+          if (!address || !isAddress(address)) return null;
 
           return (
             <div
-              key={cleanAddress}
+              key={address}
               className="flex items-center gap-2 justify-between"
             >
               <div className="flex items-center gap-2 text-lg">
                 <MdPerson />
-                {truncateAddress(cleanAddress)}
+                {truncateAddress(address)}
               </div>
               <div className="flex items-center gap-2 text-sm">New Member</div>
             </div>

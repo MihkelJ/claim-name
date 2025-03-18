@@ -9,7 +9,7 @@ import { useFollowAddress } from '@/hooks/useFollowAddress';
 import { fetchFollowerState, getFollowerSubdomains } from '@/lib/services/subname';
 import { SubnameRoot } from '@/types/subname';
 import { useQuery } from '@tanstack/react-query';
-import { useTransactions } from 'ethereum-identity-kit';
+import { extractAddressAndTag, getPendingTxListOps, useTransactions } from 'ethereum-identity-kit';
 import { useRouter } from 'next/navigation';
 import { Address, isAddress, isAddressEqual } from 'viem';
 import { useAccount } from 'wagmi';
@@ -47,14 +47,12 @@ export default function SubnameViewPage({ params }: { params: { address: Address
       ? isAddressEqual(followerState?.addressUser, connectedAddress)
       : false;
 
-  const isPending = pendingTxs.some((tx) => {
-    console.log({ tx });
-    const address = tx.args[1][0] as string | undefined;
-    const cleanAddress = address?.replace(/^0x01010101/, '0x');
+  const isPending = getPendingTxListOps(pendingTxs).some((tx) => {
+    const { address } = extractAddressAndTag(tx.data);
 
-    if (!cleanAddress || !isAddress(cleanAddress)) return false;
+    if (!address || !isAddress(address)) return false;
 
-    return isAddressEqual(cleanAddress, params.address);
+    return isAddressEqual(address, params.address);
   });
 
   if (!params.address || !isAddress(params.address)) {
