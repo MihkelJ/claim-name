@@ -1,18 +1,20 @@
 'use client';
 
 import { DisconnectedState } from '../components/DisconnectedState';
-import { NotOwnerWarning } from '../components/NotOwnerWarning';
+import { InfoCard } from '../components/InfoCard';
 import ENSProfileHeader from '@/components/ENSProfileHeader';
 import { WalletCard } from '@/components/WalletCard';
 import CONSTANTS from '@/constants';
 import { fetchFollowerState, getFollowerSubdomains } from '@/lib/services/subname';
 import { SubnameRoot } from '@/types/subname';
 import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 import { isAddressEqual } from 'viem';
 import { useAccount } from 'wagmi';
 
 export default function SubnameRegistrationPage() {
   const { address } = useAccount();
+  const router = useRouter();
 
   const {
     data: followerState,
@@ -54,7 +56,31 @@ export default function SubnameRegistrationPage() {
           />
         )}
 
-        {!isOwner && isFetched && <NotOwnerWarning />}
+        {!isOwner && isFetched && !hasRegisteredSubname && (
+          <InfoCard
+            title={`Share this to ${CONSTANTS.ENS_DOMAIN}`}
+            description={`Please share this to the ${CONSTANTS.ENS_DOMAIN} administrator to manage your subdomain membership.`}
+            action={{
+              label: 'Share',
+              onClick: () => {
+                navigator.clipboard.writeText(`https://${CONSTANTS.ENS_DOMAIN}/${address}`);
+              },
+            }}
+          />
+        )}
+
+        {hasRegisteredSubname && (
+          <InfoCard
+            title="You have a subdomain"
+            description="You can manage your subdomain membership in the home page."
+            action={{
+              label: 'Manage',
+              onClick: () => {
+                router.push(`/`);
+              },
+            }}
+          />
+        )}
       </div>
     </main>
   );
