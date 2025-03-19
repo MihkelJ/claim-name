@@ -11,7 +11,7 @@ export async function fetchFollowerState(address?: string) {
   assert(Boolean(address), 'Address is required');
 
   const response = await fetch(
-    `https://api.ethfollow.xyz/api/v1/users/${CONSTANTS.ENS_DOMAIN}/${address}/followerState`,
+    `https://api.ethfollow.xyz/api/v1/users/${CONSTANTS.ENS_DOMAIN}/${address}/followerState?cache=fresh`,
   );
   const followerState = (await response.json()) as FollowerState;
   return followerState;
@@ -24,7 +24,7 @@ export async function getFollowerSubdomains(address?: string): Promise<SubnameRo
   assert(Boolean(address), 'Address is required');
 
   const response = await fetch(
-    `https://api.justaname.id/ens/v1/subname/address?address=${address}&chainId=${mainnet.id}`,
+    `https://api.justaname.id/ens/v1/subname/address?address=${address}&chainId=${mainnet.id}&cache=fresh`,
   );
 
   return response.json();
