@@ -1,6 +1,5 @@
 'use client';
 
-import AllMembersCard from '../components/AllMembersCard';
 import { DisconnectedState } from '../components/DisconnectedState';
 import { FollowStatusCard } from '../components/FollowStatusCard';
 import { RegistrationForm } from '../components/RegistrationForm';
@@ -8,10 +7,11 @@ import RevokeSubnameCard from '../components/RevokeSubnameCard';
 import { SubnameManagementForm } from '../components/SubnameManagementForm';
 import { WalletCard } from '../components/WalletCard';
 import type { SubnameRoot } from '../types/subname';
-import AddressInputBox from '@/components/AddressInputBox';
+import AddAddressInputCard from '@/components/AddAddressInputCard';
+import AddAddressQRScanner from '@/components/AddAddressQRScanner';
 import ENSProfileHeader from '@/components/ENSProfileHeader';
-import AddressQRScanner from '@/components/FollowAddressCard';
-import PendingTransactionsCard from '@/components/PendingTransactionsCard';
+import ViewPendingTransactionsCard from '@/components/PendingTransactionsCard';
+import ViewAllMembersCard from '@/components/ViewAllMembersCard';
 import CONSTANTS from '@/constants';
 import { fetchFollowerState, getFollowerSubdomains } from '@/lib/services/subname';
 import { useQuery } from '@tanstack/react-query';
@@ -85,10 +85,10 @@ export default function SubnameRegistrationPage() {
 
         {isOwner && address && (
           <>
-            <AddressInputBox />
-            <AddressQRScanner />
-            <AllMembersCard />
-            <PendingTransactionsCard />
+            <AddAddressInputCard />
+            <AddAddressQRScanner />
+            <ViewAllMembersCard />
+            <ViewPendingTransactionsCard />
           </>
         )}
       </div>

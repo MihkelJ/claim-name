@@ -5,7 +5,7 @@ import CONSTANTS from '@/constants';
 import useMembers from '@/hooks/useMembers';
 import { useAccount } from 'wagmi';
 
-const AllMembersCard = () => {
+const ViewAllMembersCard = () => {
   const { address } = useAccount();
   const { data: members, isFetched } = useMembers(CONSTANTS.ENS_DOMAIN);
 
@@ -31,4 +31,4 @@ const AllMembersCard = () => {
   );
 };
 
-export default AllMembersCard;
+export default ViewAllMembersCard;

@@ -10,7 +10,7 @@ import {
 import { MdPerson } from 'react-icons/md';
 import { isAddress } from 'viem';
 
-const PendingTransactionsCard = () => {
+const ViewPendingTransactionsCard = () => {
   const { setTxModalOpen, pendingTxs } = useTransactions();
 
   if (pendingTxs.length === 0) return null;
@@ -60,4 +60,4 @@ const PendingTransactionsCard = () => {
   );
 };
 
-export default PendingTransactionsCard;
+export default ViewPendingTransactionsCard;

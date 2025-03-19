@@ -8,7 +8,7 @@ import { QrCode, X } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
 import { isAddress } from 'viem';
 
-const AddressQRScanner = () => {
+const AddAddressQRScanner = () => {
   const { followAddress } = useFollowAddress();
   const [isQrScannerActive, setIsQrScannerActive] = useState(false);
   const [scanResult, setScanResult] = useState({
@@ -100,4 +100,4 @@ const AddressQRScanner = () => {
   );
 };
 
-export default AddressQRScanner;
+export default AddAddressQRScanner;

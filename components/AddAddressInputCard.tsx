@@ -7,7 +7,7 @@ import { useFollowAddress } from '@/hooks/useFollowAddress';
 import { useState } from 'react';
 import { isAddress } from 'viem';
 
-const AddressInputBox = () => {
+const AddAddressInputCard = () => {
   const { followAddress } = useFollowAddress();
   const [address, setAddress] = useState('');
   const [error, setError] = useState('');
@@ -58,4 +58,4 @@ const AddressInputBox = () => {
   );
 };
 
-export default AddressInputBox;
+export default AddAddressInputCard;
