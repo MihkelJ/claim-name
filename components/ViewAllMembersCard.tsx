@@ -18,7 +18,7 @@ const ViewAllMembersCard = () => {
         </div>
       </CardHeader>
 
-      <CardContent>
+      <CardContent className="flex flex-col gap-4">
         {members?.following.map((member) => (
           <ListUserCard
             key={member.address}
