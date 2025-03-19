@@ -13,7 +13,7 @@ interface FollowStatusCardProps {
   address?: Address;
 }
 
-export function FollowStatusCard({ isLoading, isFollowing, address }: FollowStatusCardProps) {
+const ViewFollowStatusCard = ({ isLoading, isFollowing, address }: FollowStatusCardProps) => {
   const [copied, setCopied] = useState(false);
   const followProtocolUrl = `${window.location.origin}/${address}`;
 
@@ -32,7 +32,9 @@ export function FollowStatusCard({ isLoading, isFollowing, address }: FollowStat
       <Card className="animate-fade-in">
         <CardHeader className="pb-6">
           <div className="flex justify-between items-center">
-            <CardTitle className="text-base">Verified Member</CardTitle>
+            <CardTitle className="text-base">
+              {isLoading ? 'Checking Membership' : isFollowing ? 'Verified Member' : 'Not a Member'}
+            </CardTitle>
             {isLoading ? (
               <FiLoader className="size-6 animate-spin" />
             ) : isFollowing ? (
@@ -79,4 +81,6 @@ export function FollowStatusCard({ isLoading, isFollowing, address }: FollowStat
       )}
     </div>
   );
-}
+};
+
+export default ViewFollowStatusCard;

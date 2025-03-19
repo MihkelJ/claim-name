@@ -1,7 +1,6 @@
 'use client';
 
 import { DisconnectedState } from '../components/DisconnectedState';
-import { FollowStatusCard } from '../components/FollowStatusCard';
 import { RegistrationForm } from '../components/RegistrationForm';
 import RevokeSubnameCard from '../components/RevokeSubnameCard';
 import { SubnameManagementForm } from '../components/SubnameManagementForm';
@@ -10,6 +9,7 @@ import type { SubnameRoot } from '../types/subname';
 import AddAddressInputCard from '@/components/AddAddressInputCard';
 import AddAddressQRScanner from '@/components/AddAddressQRScanner';
 import ENSProfileHeader from '@/components/ENSProfileHeader';
+import ViewFollowStatusCard from '@/components/FollowStatusCard';
 import ViewPendingTransactionsCard from '@/components/PendingTransactionsCard';
 import ViewAllMembersCard from '@/components/ViewAllMembersCard';
 import CONSTANTS from '@/constants';
@@ -67,7 +67,7 @@ export default function SubnameRegistrationPage() {
     if (!isFetchedFollowerState) {
       // If owner, only show the FollowStatusCard but not the other follower content
       return (
-        <FollowStatusCard
+        <ViewFollowStatusCard
           isLoading={isLoadingFollowerStatus}
           isFollowing={followerState?.state.follow}
           address={address}
@@ -77,7 +77,7 @@ export default function SubnameRegistrationPage() {
 
     return (
       <>
-        <FollowStatusCard
+        <ViewFollowStatusCard
           isLoading={isLoadingFollowerStatus}
           isFollowing={followerState?.state.follow}
           address={address}
