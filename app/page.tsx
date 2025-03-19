@@ -20,7 +20,11 @@ import { useAccount } from 'wagmi';
 export default function SubnameRegistrationPage() {
   const { address } = useAccount();
 
-  const { data: followerState, isLoading: isLoadingFollowerStatus } = useQuery({
+  const {
+    data: followerState,
+    isLoading: isLoadingFollowerStatus,
+    isFetched: isFetchedFollowerState,
+  } = useQuery({
     queryKey: ['followerState', address],
     queryFn: async () => await fetchFollowerState(address),
     enabled: !!address,
@@ -64,11 +68,17 @@ export default function SubnameRegistrationPage() {
               address={address}
             />
 
-            {followerState?.state.follow && !hasRegisteredSubname && <RegistrationForm />}
+            {isFetchedFollowerState && (
+              <>
+                {followerState?.state.follow && !hasRegisteredSubname && <RegistrationForm />}
 
-            {hasRegisteredSubname && <SubnameManagementForm existingSubname={existingSubname} />}
+                {hasRegisteredSubname && (
+                  <SubnameManagementForm existingSubname={existingSubname} />
+                )}
 
-            {hasRegisteredSubname && <RevokeSubnameCard subname={existingSubname?.ens} />}
+                {hasRegisteredSubname && <RevokeSubnameCard subname={existingSubname?.ens} />}
+              </>
+            )}
           </>
         )}
 
