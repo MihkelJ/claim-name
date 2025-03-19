@@ -11,7 +11,7 @@ export async function fetchFollowerState(address?: string) {
   assert(Boolean(address), 'Address is required');
 
   const response = await fetch(
-    `https://api.ethfollow.xyz/api/v1/users/${CONSTANTS.ENS_DOMAIN}/${address}/followerState?cache=fresh`,
+    `https://api.ethfollow.xyz/api/v1/users/${address}/${CONSTANTS.ENS_DOMAIN}/followerState?cache=fresh`,
   );
   const followerState = (await response.json()) as FollowerState;
   return followerState;
