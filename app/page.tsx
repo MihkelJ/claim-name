@@ -11,6 +11,7 @@ import type { SubnameRoot } from '../types/subname';
 import AddressInputBox from '@/components/AddressInputBox';
 import ENSProfileHeader from '@/components/ENSProfileHeader';
 import { FollowAddressCard } from '@/components/FollowAddressCard';
+import PendingTransactionsCard from '@/components/PendingTransactionsCard';
 import CONSTANTS from '@/constants';
 import { fetchFollowerState, getFollowerSubdomains } from '@/lib/services/subname';
 import { useQuery } from '@tanstack/react-query';
@@ -87,6 +88,7 @@ export default function SubnameRegistrationPage() {
             <AddressInputBox />
             <FollowAddressCard />
             <AllMembersCard />
+            <PendingTransactionsCard />
           </>
         )}
       </div>
