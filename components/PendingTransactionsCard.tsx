@@ -15,6 +15,8 @@ const ViewPendingTransactionsCard = () => {
 
   if (pendingTxs.length === 0) return null;
 
+  console.log({ pendingTxs });
+
   return (
     <Card className="animate-fade-in">
       <CardHeader className="pb-6">
