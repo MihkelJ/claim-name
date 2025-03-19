@@ -42,8 +42,8 @@ export default function SubnameRegistrationPage() {
 
   const hasRegisteredSubname = !!existingSubname;
   const isOwner =
-    address && followerState?.addressUser && !isLoadingFollowerStatus
-      ? isAddressEqual(followerState.addressUser, address)
+    address && followerState?.addressFollower && !isLoadingFollowerStatus
+      ? isAddressEqual(followerState.addressFollower, address)
       : false;
 
   // Render helper functions

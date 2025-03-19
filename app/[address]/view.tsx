@@ -43,8 +43,8 @@ export default function SubnameViewPage({ params }: { params: { address: Address
 
   const hasRegisteredSubname = !!existingSubname;
   const isOwner =
-    connectedAddress && followerState?.addressUser && !isLoadingFollowerStatus
-      ? isAddressEqual(followerState?.addressUser, connectedAddress)
+    connectedAddress && followerState?.addressFollower && !isLoadingFollowerStatus
+      ? isAddressEqual(followerState?.addressFollower, connectedAddress)
       : false;
 
   const isPending = getPendingTxListOps(pendingTxs).some((tx) => {
