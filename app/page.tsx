@@ -7,7 +7,6 @@ import { SubnameManagementForm } from '../components/SubnameManagementForm';
 import { WalletCard } from '../components/WalletCard';
 import type { SubnameRoot } from '../types/subname';
 import AddAddressInputCard from '@/components/AddAddressInputCard';
-import AddAddressQRScanner from '@/components/AddAddressQRScanner';
 import ENSProfileHeader from '@/components/ENSProfileHeader';
 import ViewFollowStatusCard from '@/components/FollowStatusCard';
 import ViewPendingTransactionsCard from '@/components/PendingTransactionsCard';
@@ -54,7 +53,6 @@ export default function SubnameRegistrationPage() {
     return (
       <>
         <AddAddressInputCard />
-        <AddAddressQRScanner />
         <ViewAllMembersCard />
         <ViewPendingTransactionsCard />
       </>
