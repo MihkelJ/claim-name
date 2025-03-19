@@ -10,7 +10,7 @@ import { WalletCard } from '../components/WalletCard';
 import type { SubnameRoot } from '../types/subname';
 import AddressInputBox from '@/components/AddressInputBox';
 import ENSProfileHeader from '@/components/ENSProfileHeader';
-import { FollowAddressCard } from '@/components/FollowAddressCard';
+import AddressQRScanner from '@/components/FollowAddressCard';
 import PendingTransactionsCard from '@/components/PendingTransactionsCard';
 import CONSTANTS from '@/constants';
 import { fetchFollowerState, getFollowerSubdomains } from '@/lib/services/subname';
@@ -86,7 +86,7 @@ export default function SubnameRegistrationPage() {
         {isOwner && address && (
           <>
             <AddressInputBox />
-            <FollowAddressCard />
+            <AddressQRScanner />
             <AllMembersCard />
             <PendingTransactionsCard />
           </>

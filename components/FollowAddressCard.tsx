@@ -4,43 +4,34 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useFollowAddress } from '@/hooks/useFollowAddress';
 import { Scanner } from '@yudiel/react-qr-scanner';
-import { Check, QrCode, X } from 'lucide-react';
-import { useCallback, useMemo, useState } from 'react';
+import { QrCode, X } from 'lucide-react';
+import { useCallback, useEffect, useState } from 'react';
 import { isAddress } from 'viem';
 
-export function FollowAddressCard() {
+const AddressQRScanner = () => {
   const { followAddress } = useFollowAddress();
   const [isQrScannerActive, setIsQrScannerActive] = useState(false);
-  const [feedbackStatus, setFeedbackStatus] = useState({
-    isVisible: false,
-    isSuccessful: true,
+  const [scanResult, setScanResult] = useState({
+    isScanned: false,
+    isSuccessful: false,
   });
 
-  // Memoize feedback styles to prevent recalculation on each render
-  const feedbackStyleOptions = useMemo(
-    () => ({
-      successStyle: 'bg-green-100 dark:bg-green-900/20 text-green-700 dark:text-green-300',
-      errorStyle: 'bg-red-100 dark:bg-red-900/20 text-red-700 dark:text-red-300',
-    }),
-    [],
-  );
-
+  // Reset scan result when scanner is toggled
   const toggleQrScanner = useCallback(() => {
     setIsQrScannerActive((prevState) => !prevState);
-    setFeedbackStatus((prevState) => ({ ...prevState, isVisible: false }));
+    setScanResult({ isScanned: false, isSuccessful: false });
   }, []);
 
-  const displayTemporaryFeedback = useCallback((isSuccessful: boolean) => {
-    setFeedbackStatus({ isVisible: true, isSuccessful });
+  // Reset scan result after a delay
+  useEffect(() => {
+    if (scanResult.isScanned) {
+      const resetTimeoutId = setTimeout(() => {
+        setScanResult((prevState) => ({ ...prevState, isScanned: false }));
+      }, 1500);
 
-    // Clear feedback after delay
-    const feedbackTimeoutId = setTimeout(() => {
-      setFeedbackStatus((prevState) => ({ ...prevState, isVisible: false }));
-    }, 1500);
-
-    // Clean up timeout if component unmounts
-    return () => clearTimeout(feedbackTimeoutId);
-  }, []);
+      return () => clearTimeout(resetTimeoutId);
+    }
+  }, [scanResult.isScanned]);
 
   const handleQrCodeScan = useCallback(
     (scannedContent: string) => {
@@ -62,9 +53,9 @@ export function FollowAddressCard() {
       // Case 3: Handle other potential formats (e.g., ENS names, etc.)
       // TODO: Implement additional address format handling
 
-      displayTemporaryFeedback(isAddressFound);
+      setScanResult({ isScanned: true, isSuccessful: isAddressFound });
     },
-    [followAddress, displayTemporaryFeedback],
+    [followAddress],
   );
 
   return (
@@ -85,32 +76,28 @@ export function FollowAddressCard() {
 
       {isQrScannerActive && (
         <CardContent>
-          <div className="w-full h-full aspect-square">
-            <Scanner onScan={(result) => handleQrCodeScan(result[0].rawValue)} />
-          </div>
-        </CardContent>
-      )}
-
-      {feedbackStatus.isVisible && (
-        <CardContent>
           <div
-            className={`flex items-center gap-2 p-2 rounded-lg ${
-              feedbackStatus.isSuccessful
-                ? feedbackStyleOptions.successStyle
-                : feedbackStyleOptions.errorStyle
+            className={`w-full h-full aspect-square relative transition-all duration-300 ${
+              scanResult.isScanned
+                ? scanResult.isSuccessful
+                  ? 'opacity-70 bg-green-100 dark:bg-green-900/20'
+                  : 'opacity-70 bg-red-100 dark:bg-red-900/20'
+                : ''
             }`}
           >
-            {feedbackStatus.isSuccessful ? (
-              <Check className="h-4 w-4" />
-            ) : (
-              <X className="h-4 w-4" />
+            <Scanner onScan={(result) => handleQrCodeScan(result[0].rawValue)} />
+            {scanResult.isScanned && (
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <span className="text-lg font-medium px-4 py-2 rounded-lg bg-white/80 dark:bg-black/80">
+                  {scanResult.isSuccessful ? 'Address added!' : 'Invalid QR code'}
+                </span>
+              </div>
             )}
-            <span className="text-sm">
-              {feedbackStatus.isSuccessful ? 'Address added!' : 'Invalid QR code'}
-            </span>
           </div>
         </CardContent>
       )}
     </Card>
   );
-}
+};
+
+export default AddressQRScanner;
