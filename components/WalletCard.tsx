@@ -19,7 +19,7 @@ export function WalletCard({ address, isOwner }: WalletCardProps) {
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <CardTitle className="text-base">Wallet Connection</CardTitle>
-          <IoWalletOutline className="h-3.5 w-3.5 text-muted-foreground" />
+          <IoWalletOutline className="size-4 text-muted-foreground" />
         </div>
       </CardHeader>
       <CardContent className="pt-0">

@@ -15,6 +15,15 @@ export const Opcode = {
 
 export type ListOpcode = (typeof Opcode)[keyof typeof Opcode];
 
+/**
+ * Returns the string representation of an opcode
+ */
+export function getOpcodeString(code: ListOpcode): string {
+  const opcodeEntries = Object.entries(Opcode);
+  const entry = opcodeEntries.find(([_, value]) => value === code);
+  return entry ? entry[0] : 'UNKNOWN';
+}
+
 export function useFollowAddress() {
   const { address: connectedAddress } = useAccount();
   const { addListOpsTransaction, pendingTxs } = useTransactions();
