@@ -1,7 +1,7 @@
 'use client';
 
-import { DisconnectedState } from '../../components/DisconnectedState';
 import { InfoCard } from '../../components/InfoCard';
+import ConnectWalletCard from '@/components/ConnectWalletCard';
 import ENSProfileHeader from '@/components/ENSProfileHeader';
 import { WalletCard } from '@/components/WalletCard';
 import CONSTANTS from '@/constants';
@@ -64,7 +64,7 @@ export default function SubnameViewPage({ params }: { params: { address: Address
       <div className="max-w-3xl mx-auto space-y-6">
         <ENSProfileHeader />
 
-        {!connectedAddress && <DisconnectedState />}
+        {!connectedAddress && <ConnectWalletCard />}
 
         {connectedAddress && (
           <WalletCard

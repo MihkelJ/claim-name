@@ -1,6 +1,6 @@
 'use client';
 
-import { DisconnectedState } from '../components/DisconnectedState';
+import ConnectWalletCard from '../components/ConnectWalletCard';
 import { RegistrationForm } from '../components/RegistrationForm';
 import RevokeSubnameCard from '../components/RevokeSubnameCard';
 import { SubnameManagementForm } from '../components/SubnameManagementForm';
@@ -100,7 +100,7 @@ export default function SubnameRegistrationPage() {
       <div className="max-w-3xl mx-auto space-y-6">
         <ENSProfileHeader />
 
-        {!address && <DisconnectedState />}
+        {!address && <ConnectWalletCard />}
 
         {address && (
           <WalletCard

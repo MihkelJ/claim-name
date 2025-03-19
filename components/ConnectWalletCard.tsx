@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import CONSTANTS from '@/constants';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 
-export function DisconnectedState() {
+const ConnectWalletCard = () => {
   const { openConnectModal } = useConnectModal();
 
   return (
@@ -24,4 +24,6 @@ export function DisconnectedState() {
       </CardContent>
     </Card>
   );
-}
+};
+
+export default ConnectWalletCard;
