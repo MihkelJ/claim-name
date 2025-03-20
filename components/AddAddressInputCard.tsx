@@ -131,6 +131,7 @@ const AddAddressInputCard = () => {
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 className={error ? 'border-red-500' : ''}
+                autoComplete="off"
               />
               <Button type="submit">Follow</Button>
             </div>

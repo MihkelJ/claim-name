@@ -36,6 +36,7 @@ export function SubnameManagementForm({ existingSubname }: SubnameManagementForm
                 id="avatarKey"
                 placeholder="Enter Avatar URL"
                 {...subnameKeysForm.register('avatarKey')}
+                autoComplete="off"
               />
             </div>
             <div>
@@ -44,6 +45,7 @@ export function SubnameManagementForm({ existingSubname }: SubnameManagementForm
                 id="displayKey"
                 placeholder="Enter Display Name"
                 {...subnameKeysForm.register('displayKey')}
+                autoComplete="off"
               />
             </div>
             {subnameKeysError && <p className="text-sm text-red-500">{subnameKeysError}</p>}
