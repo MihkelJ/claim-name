@@ -11,6 +11,8 @@ const CONSTANTS = {
   ENS_API_KEY: process.env.NEXT_PUBLIC_ENS_API_KEY!,
 
   MAINNET_RPC_URL: process.env.NEXT_PUBLIC_MAINNET_RPC_URL || mainnet.rpcUrls.default.http[0],
+
+  MEMBERS_ONLY: process.env.NEXT_PUBLIC_MEMBERS_ONLY === 'true',
 };
 
 export default CONSTANTS;

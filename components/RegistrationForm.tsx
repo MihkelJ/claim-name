@@ -25,17 +25,17 @@ export function RegistrationForm() {
   return (
     <Card className="animate-fade-in">
       <CardHeader>
-        <CardTitle>Member Registration</CardTitle>
-        <CardDescription>Please enter your details</CardDescription>
+        <CardTitle>Claim Your Subdomain</CardTitle>
+        <CardDescription>Choose your unique identifier</CardDescription>
       </CardHeader>
       <form onSubmit={handleSubnameRegistration}>
         <CardContent>
           <div className="space-y-2">
-            <Label htmlFor="name">Name</Label>
+            <Label htmlFor="name">Subdomain Name</Label>
             <div className="relative">
               <Input
                 id="name"
-                placeholder="Enter your name"
+                placeholder="Enter your subdomain"
                 {...subnameRegistrationForm.register('username')}
                 className="pr-[120px]"
                 autoComplete="off"
@@ -54,7 +54,7 @@ export function RegistrationForm() {
             disabled={isRegistrationSubmitting || !isSubnameAvailable.isSubnameAvailable}
           >
             {isRegistrationSubmitting ? <FiLoader className="size-4 animate-spin mr-2" /> : null}
-            {isRegistrationSubmitting ? 'Submitting...' : 'Submit'}
+            {isRegistrationSubmitting ? 'Claiming...' : 'Claim Subdomain'}
           </Button>
         </CardFooter>
       </form>

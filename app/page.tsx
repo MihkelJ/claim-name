@@ -3,12 +3,12 @@
 import ConnectWalletCard from '../components/ConnectWalletCard';
 import { RegistrationForm } from '../components/RegistrationForm';
 import RevokeSubnameCard from '../components/RevokeSubnameCard';
-import { SubnameManagementForm } from '../components/SubnameManagementForm';
 import { WalletCard } from '../components/WalletCard';
 import type { SubnameRoot } from '../types/subname';
 import AddAddressInputCard from '@/components/AddAddressInputCard';
 import ENSProfileHeader from '@/components/ENSProfileHeader';
 import ViewFollowStatusCard from '@/components/FollowStatusCard';
+import MembershipInviteCard from '@/components/MembershipInviteCard';
 import ViewPendingTransactionsCard from '@/components/PendingTransactionsCard';
 import ViewAllMembersCard from '@/components/ViewAllMembersCard';
 import CONSTANTS from '@/constants';
@@ -68,7 +68,6 @@ export default function SubnameRegistrationPage() {
         <ViewFollowStatusCard
           isLoading={isLoadingFollowerStatus}
           isFollowing={followerState?.state.follow}
-          address={address}
         />
       );
     }
@@ -78,17 +77,28 @@ export default function SubnameRegistrationPage() {
         <ViewFollowStatusCard
           isLoading={isLoadingFollowerStatus}
           isFollowing={followerState?.state.follow}
-          address={address}
         />
 
-        {followerState?.state.follow && !hasRegisteredSubname && <RegistrationForm />}
+        {!hasRegisteredSubname && CONSTANTS.MEMBERS_ONLY && followerState?.state.follow && (
+          <RegistrationForm />
+        )}
+        {!hasRegisteredSubname && !CONSTANTS.MEMBERS_ONLY && <RegistrationForm />}
+
+        {CONSTANTS.MEMBERS_ONLY && !followerState?.state.follow && (
+          <MembershipInviteCard address={address} />
+        )}
+        {!CONSTANTS.MEMBERS_ONLY && hasRegisteredSubname && (
+          <MembershipInviteCard address={address} />
+        )}
 
         {hasRegisteredSubname && (
           <>
-            <SubnameManagementForm existingSubname={existingSubname} />
+            {/* <SubnameManagementForm existingSubname={existingSubname} /> */}
             <RevokeSubnameCard subname={existingSubname?.ens} />
           </>
         )}
+
+        {}
       </>
     );
   };

@@ -9,7 +9,7 @@ import { NextRequest } from 'next/server';
  *
  * This endpoint handles:
  * 1. Request validation using the add schema
- * 2. Checking follower state and existing subnames
+ * 2. Checking follower state (if MEMBERS_ONLY is enabled) and existing subnames
  * 3. Subname registration through the subname service
  * 4. Error handling and response formatting
  */
@@ -20,10 +20,12 @@ export async function POST(req: NextRequest) {
     const { username, message, signature, address, text, addresses, contentHash } =
       validatedRequest;
 
-    // 2. Check follower state
-    const isFollowing = await fetchFollowerState(address);
-    if (!isFollowing) {
-      throw new Error('You must follow the top domain to register a subdomain');
+    // 2. Check follower state (only if MEMBERS_ONLY is enabled)
+    if (CONSTANTS.MEMBERS_ONLY) {
+      const isFollowing = await fetchFollowerState(address);
+      if (!isFollowing) {
+        throw new Error('You must follow the top domain to register a subdomain');
+      }
     }
 
     // 3. Check for existing subname
