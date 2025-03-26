@@ -16,10 +16,10 @@ This Web3 application enables communities to grant ENS subdomains to members the
 3. **Member Management** 👤
    - Community owners use EFP (Ethereum Follow Protocol) to follow members
    - EFP following status determines subname claim eligibility
-   - Only followed members can claim subdomains
+   - When `NEXT_PUBLIC_MEMBERS_ONLY` is set to true, only followed members can claim subdomains
 4. **Claiming Process** 🏷️
    - Members connect their Web3 wallet
-   - Members who hold an EFP follow token from the community can choose their desired subname
+   - If `NEXT_PUBLIC_MEMBERS_ONLY` is enabled, only members who hold an EFP follow token from the community can choose their desired subname
    - The system checks availability and validates the chosen name
    - Upon confirmation, the subname is minted to the member's address
 
@@ -29,7 +29,7 @@ This Web3 application enables communities to grant ENS subdomains to members the
 
 - Node.js (LTS version)
 - npm
-- WalletConnect Project ID (get it from [WalletConnect Cloud](https://cloud.walletconnect.org/app))
+- WalletConnect Project ID (get it from [Reown Cloud](https://cloud.reown.com/))
 - Justaname API Key (get it from [Justaname Dashboard](https://dashboard.justaname.id/auth))
 
 ### Setup ⚙️
@@ -54,6 +54,7 @@ This Web3 application enables communities to grant ENS subdomains to members the
    NEXT_PUBLIC_APP_ORIGIN=http://localhost:3000
 
    # Optional Settings
+   NEXT_PUBLIC_MEMBERS_ONLY=true             # If true, only EFP-followed members can claim subnames
    NEXT_PUBLIC_MAINNET_RPC_URL=             # Custom Mainnet RPC URL (optional)
    ```
 
