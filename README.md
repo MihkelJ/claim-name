@@ -66,6 +66,64 @@ This Web3 application enables communities to grant ENS subdomains to members the
 
 Visit [http://localhost:3000](http://localhost:3000/) to see the application.
 
+## Docker Deployment 🐳
+
+### Prerequisites
+
+- Docker
+- Docker Compose
+
+### Using Docker Compose
+
+1. Make sure you have a `.env` file with all required variables:
+
+   ```bash
+   cp .env.example .env
+   # Edit the .env file with your configuration values
+   ```
+
+2. Build and start the container:
+
+   ```bash
+   docker-compose up -d --build
+   ```
+
+   This builds the Docker image and starts the container in detached mode.
+
+3. Access the application at [http://localhost:3000](http://localhost:3000/)
+
+### Manual Docker Build
+
+If you prefer to build and run the Docker image manually:
+
+1. Build the Docker image:
+
+   ```bash
+   docker build -t claim-name \
+     --build-arg NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=your_project_id \
+     --build-arg NEXT_PUBLIC_APP_NAME=your_app_name \
+     --build-arg NEXT_PUBLIC_ENS_DOMAIN=your_domain.eth \
+     --build-arg NEXT_PUBLIC_APP_DOMAIN=http://localhost:3000 \
+     --build-arg NEXT_PUBLIC_APP_ORIGIN=http://localhost:3000 \
+     --build-arg NEXT_PUBLIC_ENS_API_KEY=your_api_key \
+     --build-arg NEXT_PUBLIC_MEMBERS_ONLY=true \
+     .
+   ```
+
+2. Run the container:
+
+   ```bash
+   docker run -p 3000:3000 claim-name
+   ```
+
+### Production Deployment
+
+For production deployment, update the environment variables with your production URLs:
+
+```bash
+docker-compose -f docker-compose.yml up -d --build
+```
+
 ## Acknowledgments 🙏
 
 - [ENS Domains](https://ens.domains/)
