@@ -116,6 +116,18 @@ export interface MultiSelectProps
    * Optional, defaults to true.
    */
   searchable?: boolean;
+
+  /**
+   * The current selected values of the multi-select component.
+   * Optional, can be used to control the component's state.
+   */
+  value?: string[];
+
+  /** Whether the multi-select is in a loading state */
+  loading?: boolean;
+
+  /** Whether the multi-select is disabled */
+  disabled?: boolean;
 }
 
 export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>(
@@ -125,12 +137,15 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
       onValueChange,
       variant,
       defaultValue = [],
+      value,
       animation = 0,
       placeholder = 'Select options',
       maxCount = 3,
       modalPopover = false,
       searchable = true,
       className,
+      loading = false,
+      disabled = false,
       ...props
     },
     ref,
@@ -138,6 +153,13 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
     const [selectedValues, setSelectedValues] = React.useState<string[]>(defaultValue);
     const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
     const [isAnimating, setIsAnimating] = React.useState(false);
+
+    // Update internal state when value prop changes
+    React.useEffect(() => {
+      if (value !== undefined) {
+        setSelectedValues(value);
+      }
+    }, [value]);
 
     const handleInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
       if (event.key === 'Enter') {
@@ -194,12 +216,20 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
             ref={ref}
             {...props}
             onClick={handleTogglePopover}
+            disabled={disabled || loading}
             className={cn(
               'flex w-full p-1 rounded-md border min-h-10 h-auto items-center justify-between bg-inherit hover:bg-inherit [&_svg]:pointer-events-auto',
+              disabled && 'opacity-50 cursor-not-allowed',
+              loading && 'cursor-wait',
               className,
             )}
           >
-            {selectedValues.length > 0 ? (
+            {loading ? (
+              <div className="flex items-center justify-between w-full mx-auto">
+                <span className="text-sm text-muted-foreground mx-3">Loading...</span>
+                <div className="h-4 w-4 border-2 border-muted-foreground border-t-transparent rounded-full animate-spin" />
+              </div>
+            ) : selectedValues.length > 0 ? (
               <div className="flex justify-between items-center w-full">
                 <div className="flex flex-wrap items-center">
                   {selectedValues.slice(0, maxCount).map((value) => {
@@ -279,6 +309,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
               <CommandInput
                 placeholder="Search..."
                 onKeyDown={handleInputKeyDown}
+                disabled={disabled || loading}
               />
             )}
             <CommandList>
@@ -288,6 +319,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                   key="all"
                   onSelect={toggleAll}
                   className="cursor-pointer"
+                  disabled={disabled || loading}
                 >
                   <div
                     className={cn(
@@ -308,6 +340,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                       key={option.value}
                       onSelect={() => toggleOption(option.value)}
                       className="cursor-pointer"
+                      disabled={disabled || loading}
                     >
                       <div
                         className={cn(
@@ -335,6 +368,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                       <CommandItem
                         onSelect={handleClear}
                         className="flex-1 justify-center cursor-pointer"
+                        disabled={disabled || loading}
                       >
                         Clear
                       </CommandItem>
@@ -347,6 +381,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                   <CommandItem
                     onSelect={() => setIsPopoverOpen(false)}
                     className="flex-1 justify-center cursor-pointer max-w-full"
+                    disabled={disabled || loading}
                   >
                     Close
                   </CommandItem>
@@ -355,7 +390,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
             </CommandList>
           </Command>
         </PopoverContent>
-        {animation > 0 && selectedValues.length > 0 && (
+        {animation > 0 && selectedValues.length > 0 && !loading && !disabled && (
           <WandSparkles
             className={cn(
               'cursor-pointer my-2 text-foreground bg-background w-3 h-3',
