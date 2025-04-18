@@ -10,6 +10,7 @@ import ENSProfileHeader from '@/components/ENSProfileHeader';
 import ViewFollowStatusCard from '@/components/FollowStatusCard';
 import MembershipInviteCard from '@/components/MembershipInviteCard';
 import ViewPendingTransactionsCard from '@/components/PendingTransactionsCard';
+import { SubnameManagementForm } from '@/components/SubnameManagementForm';
 import ViewAllMembersCard from '@/components/ViewAllMembersCard';
 import CONSTANTS from '@/constants';
 import { fetchFollowerState, getFollowerSubdomains } from '@/lib/services/subname';
@@ -93,7 +94,7 @@ export default function SubnameRegistrationPage() {
 
         {hasRegisteredSubname && (
           <>
-            {/* <SubnameManagementForm existingSubname={existingSubname} /> */}
+            <SubnameManagementForm existingSubname={existingSubname} />
             <RevokeSubnameCard subname={existingSubname?.ens} />
           </>
         )}

@@ -1,46 +1,53 @@
+import {
+  PreferencesSchema,
+  SubmitPreferencesInput,
+  SubmitPreferencesSchema,
+} from '@/lib/schemas/preferences';
 import { useBaseForm } from '@/lib/utils/useBaseForm';
 import { useRecords, useUpdateSubname } from '@justaname.id/react';
 import { useMutation } from '@tanstack/react-query';
 import { useEffect } from 'react';
-import { z } from 'zod';
-
-const subnameKeysSchema = z.object({
-  avatarKey: z.string().url('Avatar must be a valid URL').optional(),
-  displayKey: z.string().optional(),
-});
-
-type SubnameKeysFormData = z.infer<typeof subnameKeysSchema>;
 
 export function useSubnameKeysForm({ ens }: { ens: string }) {
   const { updateSubname } = useUpdateSubname();
-  const { records, isRecordsFetching } = useRecords({
+  // TODO: implement appending records to the form
+  const { isRecordsFetching, records } = useRecords({
     ens,
   });
 
-  const { form, handleError } = useBaseForm<SubnameKeysFormData>({
-    schema: subnameKeysSchema,
+  const { form, handleError } = useBaseForm<SubmitPreferencesInput>({
+    schema: SubmitPreferencesSchema,
     defaultValues: {
-      avatarKey: '',
-      displayKey: '',
+      chains: [],
+      tokens: [],
     },
   });
 
   useEffect(() => {
     if (records) {
-      form.setValue('avatarKey', records.sanitizedRecords.avatar);
-      form.setValue('displayKey', records.sanitizedRecords.display);
+      const parsedRecords = PreferencesSchema.safeParse(
+        JSON.parse(records.records.texts.find((record) => record.key === 'me.yodl')?.value || '{}'),
+      );
+
+      if (parsedRecords.success) {
+        form.setValue('chains', parsedRecords.data.chains);
+        form.setValue('tokens', parsedRecords.data.tokens);
+      }
     }
   }, [form, records]);
 
   const mutation = useMutation({
-    mutationFn: async (data: SubnameKeysFormData) => {
+    mutationFn: async (data: SubmitPreferencesInput) => {
       const text: Record<string, string> = {};
-      if (data.displayKey) text.display = data.displayKey;
-      if (data.avatarKey) text.avatar = data.avatarKey;
+
+      if ((data.chains || []).length > 0) text.chains = data.chains!.join(',');
+      if ((data.tokens || []).length > 0) text.tokens = data.tokens!.join(',');
 
       await updateSubname({
         ens,
-        text,
+        text: {
+          'me.yodl': JSON.stringify(text),
+        },
       });
     },
     onError: handleError,

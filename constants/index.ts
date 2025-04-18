@@ -1,4 +1,11 @@
+import { SUPPORTED_CHAINS } from './chains';
 import { mainnet } from 'viem/chains';
+
+const ENABLED_TOKEN_SYMBOLS = process.env.NEXT_PUBLIC_ENABLED_TOKEN_SYMBOLS?.split(',');
+
+if (ENABLED_TOKEN_SYMBOLS === undefined) {
+  throw new Error('NEXT_PUBLIC_ENABLED_TOKEN_SYMBOLS is not set');
+}
 
 const CONSTANTS = {
   APP_NAME: process.env.NEXT_PUBLIC_APP_NAME!,
@@ -13,6 +20,11 @@ const CONSTANTS = {
   MAINNET_RPC_URL: process.env.NEXT_PUBLIC_MAINNET_RPC_URL || mainnet.rpcUrls.default.http[0],
 
   MEMBERS_ONLY: process.env.NEXT_PUBLIC_MEMBERS_ONLY === 'true',
+
+  ENABLED_TOKEN_SYMBOLS: process.env.NEXT_PUBLIC_ENABLED_TOKEN_SYMBOLS?.split(',') || [],
+  ENABLED_CHAIN_IDS:
+    process.env.NEXT_PUBLIC_ENABLED_CHAIN_IDS?.split(',') ||
+    Object.values(SUPPORTED_CHAINS).map((chain) => chain.id.toString()),
 };
 
 export default CONSTANTS;

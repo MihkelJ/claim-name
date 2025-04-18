@@ -1,4 +1,5 @@
 import CONSTANTS from '@/constants';
+import { SUPPORTED_CHAINS } from '@/constants/chains';
 import { usernameSchema } from '@/lib/schemas/username';
 import { useBaseForm } from '@/lib/utils/useBaseForm';
 import { useAddSubname, useIsSubnameAvailable } from '@justaname.id/react';
@@ -30,9 +31,33 @@ export function useRegistrationForm() {
 
   const handleSubmit = form.handleSubmit(async (data) => {
     try {
+      const textConfig: Record<string, string> = {};
+
+      // Only add me.yodl config if either chains or tokens are available
+      if (CONSTANTS.ENABLED_CHAIN_IDS.length > 0 || CONSTANTS.ENABLED_TOKEN_SYMBOLS.length > 0) {
+        const yodlConfig: Record<string, string> = {};
+
+        if (
+          CONSTANTS.ENABLED_CHAIN_IDS.length > 0 &&
+          CONSTANTS.ENABLED_CHAIN_IDS.length !== Object.values(SUPPORTED_CHAINS).length
+        ) {
+          console.log('here');
+          yodlConfig.chains = CONSTANTS.ENABLED_CHAIN_IDS.join(',');
+        } else {
+          console.log('here2');
+        }
+
+        if (CONSTANTS.ENABLED_TOKEN_SYMBOLS.length > 0) {
+          yodlConfig.tokens = CONSTANTS.ENABLED_TOKEN_SYMBOLS.join(',');
+        }
+
+        textConfig['me.yodl'] = JSON.stringify(yodlConfig);
+      }
+
       await addSubname({
         ensDomain: CONSTANTS.ENS_DOMAIN,
         username: data.username.toLowerCase(),
+        text: textConfig,
       });
       window.location.reload();
     } catch (error) {
