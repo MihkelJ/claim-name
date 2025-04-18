@@ -17,7 +17,7 @@ export function useRegistrationForm() {
   const { form, handleError } = useBaseForm<RegistrationFormData>({
     schema: registrationSchema,
     defaultValues: {
-      username: '',
+      username: undefined,
     },
   });
 
@@ -46,5 +46,6 @@ export function useRegistrationForm() {
     error: form.formState.errors.username?.message,
     handleSubmit,
     isSubnameAvailable,
+    debouncedUsername,
   };
 }

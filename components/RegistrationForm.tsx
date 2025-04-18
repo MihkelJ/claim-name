@@ -11,7 +11,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import CONSTANTS from '@/constants';
 import { useRegistrationForm } from '@/hooks/useRegistrationForm';
-import { FiLoader } from 'react-icons/fi';
 
 export function RegistrationForm() {
   const {
@@ -20,7 +19,19 @@ export function RegistrationForm() {
     form: subnameRegistrationForm,
     isSubmitting: isRegistrationSubmitting,
     error: registrationError,
+    debouncedUsername,
   } = useRegistrationForm();
+
+  const hasInput = debouncedUsername?.length > 0;
+  const isCheckingAvailability = isSubnameAvailable.isSubnameAvailableFetching;
+  const isAvailable = isSubnameAvailable.isSubnameAvailable?.isAvailable;
+  const isLoading = isRegistrationSubmitting || isCheckingAvailability;
+  const isDisabled = isLoading || !isAvailable || !hasInput;
+
+  const errorMessage =
+    hasInput &&
+    (registrationError ||
+      (!isAvailable && !isCheckingAvailability ? 'Subdomain is not available' : null));
 
   return (
     <Card className="animate-fade-in">
@@ -44,16 +55,16 @@ export function RegistrationForm() {
                 .{CONSTANTS.ENS_DOMAIN}
               </div>
             </div>
-            {registrationError && <p className="text-sm text-red-500 mt-1">{registrationError}</p>}
+            {errorMessage && <p className="text-sm text-red-500 mt-1">{errorMessage}</p>}
           </div>
         </CardContent>
         <CardFooter>
           <Button
             type="submit"
             className="w-full"
-            disabled={isRegistrationSubmitting || !isSubnameAvailable.isSubnameAvailable}
+            loading={isLoading}
+            disabled={isDisabled}
           >
-            {isRegistrationSubmitting ? <FiLoader className="size-4 animate-spin mr-2" /> : null}
             {isRegistrationSubmitting ? 'Claiming...' : 'Claim Subdomain'}
           </Button>
         </CardFooter>
