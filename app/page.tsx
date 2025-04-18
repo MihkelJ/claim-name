@@ -87,7 +87,7 @@ export default function SubnameRegistrationPage() {
         {CONSTANTS.MEMBERS_ONLY && !followerState?.state.follow && (
           <MembershipInviteCard address={address} />
         )}
-        {!CONSTANTS.MEMBERS_ONLY && hasRegisteredSubname && (
+        {!CONSTANTS.MEMBERS_ONLY && hasRegisteredSubname && !followerState?.state.follow && (
           <MembershipInviteCard address={address} />
         )}
 
