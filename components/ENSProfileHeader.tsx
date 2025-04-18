@@ -1,6 +1,7 @@
 import { Card } from '@/components/ui/card';
 import CONSTANTS from '@/constants';
 import { useRecords } from '@justaname.id/react';
+import Image from 'next/image';
 
 const ENSProfileHeader: React.FC = () => {
   const { records: ensRecords } = useRecords({
@@ -16,10 +17,13 @@ const ENSProfileHeader: React.FC = () => {
       <div className="relative">
         <div className="h-64">
           {profileBanner && (
-            <img
+            <Image
               src={profileBanner}
               alt={`${CONSTANTS.ENS_DOMAIN} profile banner`}
               className="object-cover"
+              fill
+              sizes="100vw"
+              priority
             />
           )}
           {/* Dark overlay for better text readability */}
@@ -29,12 +33,15 @@ const ENSProfileHeader: React.FC = () => {
         {/* Content overlay */}
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-6">
           {/* Avatar Image */}
-          <div className="size-48 rounded-full overflow-hidden border-8 border-white bg-gray-100 shadow-xl">
+          <div className="size-48 rounded-full overflow-hidden border-8 border-white bg-gray-100 shadow-xl relative">
             {profileAvatar && (
-              <img
+              <Image
                 src={profileAvatar}
                 alt={`${CONSTANTS.ENS_DOMAIN} profile avatar`}
                 className="object-cover"
+                fill
+                sizes="192px"
+                priority
               />
             )}
           </div>
