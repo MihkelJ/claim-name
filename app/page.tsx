@@ -12,22 +12,20 @@ import MembershipInviteCard from '@/components/MembershipInviteCard';
 import ViewPendingTransactionsCard from '@/components/PendingTransactionsCard';
 import { SubnameManagementForm } from '@/components/SubnameManagementForm';
 import ViewAllMembersCard from '@/components/ViewAllMembersCard';
+import ViewAllSubdomainHolders from '@/components/ViewAllSubdomainHolders';
 import { justanameClientFrontend, publicClient } from '@/config/client';
 import CONSTANTS from '@/constants';
 import { fetchFollowerState, getFollowerSubdomains } from '@/lib/services/subname';
 import { useQuery } from '@tanstack/react-query';
+import { useMemo } from 'react';
 import { isAddressEqual } from 'viem';
 import { useAccount } from 'wagmi';
 
 export default function SubnameRegistrationPage() {
   const { address } = useAccount();
 
-  const {
-    data: followerState,
-    isLoading: isLoadingFollowerStatus,
-    isFetched: isFetchedFollowerState,
-  } = useQuery({
-    queryKey: ['followerState', address],
+  const { data: membersSource } = useQuery({
+    queryKey: ['membersSource'],
     queryFn: async () => {
       try {
         // Fetch ENS records for the domain
@@ -52,6 +50,26 @@ export default function SubnameRegistrationPage() {
           throw new Error('Invalid members source in configuration');
         }
 
+        return membersSource;
+      } catch (error) {
+        console.error('Error fetching members source:', error);
+        throw error;
+      }
+    },
+  });
+
+  const {
+    data: followerState,
+    isLoading: isLoadingFollowerStatus,
+    isFetched: isFetchedFollowerState,
+  } = useQuery({
+    queryKey: ['followerState', address, membersSource],
+    queryFn: async () => {
+      try {
+        if (!membersSource) {
+          throw new Error('Members source not available');
+        }
+
         // Resolve the ENS name to get the address
         const followedAddress = await publicClient.getEnsResolver({
           name: membersSource,
@@ -64,7 +82,7 @@ export default function SubnameRegistrationPage() {
         throw error;
       }
     },
-    enabled: !!address,
+    enabled: !!address && !!membersSource,
   });
 
   const { data: subnameData } = useQuery<SubnameRoot>({
@@ -78,26 +96,29 @@ export default function SubnameRegistrationPage() {
   );
 
   const hasRegisteredSubname = !!existingSubname;
-  const isOwner =
-    address && followerState?.addressFollower && !isLoadingFollowerStatus
+
+  const isAdmin = useMemo(() => {
+    return address && followerState?.addressFollower
       ? isAddressEqual(followerState.addressFollower, address)
       : false;
+  }, [address, followerState?.addressFollower]);
 
   // Render helper functions
   const renderOwnerContent = () => {
-    if (!isOwner || !address) return null;
+    if (!isAdmin || !address || !membersSource) return null;
 
     return (
       <>
         <AddAddressInputCard />
-        <ViewAllMembersCard />
+        <ViewAllMembersCard members_source={membersSource} />
+        <ViewAllSubdomainHolders />
         <ViewPendingTransactionsCard />
       </>
     );
   };
 
   const renderFollowerContent = () => {
-    if (!address || isOwner) return null;
+    if (!address || isAdmin) return null;
 
     if (!isFetchedFollowerState) {
       // If owner, only show the FollowStatusCard but not the other follower content
@@ -149,7 +170,7 @@ export default function SubnameRegistrationPage() {
 
         {address && (
           <WalletCard
-            isOwner={isOwner}
+            isOwner={isAdmin}
             address={address}
           />
         )}

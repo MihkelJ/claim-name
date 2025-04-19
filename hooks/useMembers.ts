@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Address } from 'viem';
 
 export interface Root {
-  following: Following[];
+  following?: Following[];
 }
 
 export interface Following {

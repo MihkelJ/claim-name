@@ -1,13 +1,14 @@
 import LoadingSpinner from './ui/LoadingSpinner';
 import ListUserCard from '@/components/ListUserCard';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import CONSTANTS from '@/constants';
 import useMembers from '@/hooks/useMembers';
 import { useAccount } from 'wagmi';
 
-const ViewAllMembersCard = () => {
+const ViewAllMembersCard = ({ members_source }: { members_source: string }) => {
   const { address } = useAccount();
-  const { data: members, isFetched } = useMembers(CONSTANTS.ENS_DOMAIN);
+  const { data: members, isFetched } = useMembers(members_source);
+
+  const hasMembers = members?.following?.length && members.following.length > 0;
 
   return (
     <Card className="animate-fade-in">
@@ -19,13 +20,18 @@ const ViewAllMembersCard = () => {
       </CardHeader>
 
       <CardContent className="flex flex-col gap-4">
-        {members?.following.map((member) => (
-          <ListUserCard
-            key={member.address}
-            address={member.address}
-            ownerAddress={address!}
-          />
-        ))}
+        {hasMembers &&
+          members?.following?.map((member) => (
+            <ListUserCard
+              key={member.address}
+              address={member.address}
+              ownerAddress={address!}
+            />
+          ))}
+
+        {!hasMembers && isFetched && (
+          <div className="text-center text-sm text-muted-foreground">No members found</div>
+        )}
       </CardContent>
     </Card>
   );
