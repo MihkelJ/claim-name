@@ -18,7 +18,7 @@ import CONSTANTS from '@/constants';
 import { fetchFollowerState, getFollowerSubdomains } from '@/lib/services/subname';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
-import { isAddressEqual } from 'viem';
+import { Address, isAddressEqual } from 'viem';
 import { useAccount } from 'wagmi';
 
 export default function SubnameRegistrationPage() {
@@ -44,13 +44,19 @@ export default function SubnameRegistrationPage() {
 
         // Parse the configuration
         const configJson = JSON.parse(configRecord.value);
-        const membersSource = configJson?.members_source;
+        const membersSourceEns = configJson?.members_source;
 
-        if (!membersSource || typeof membersSource !== 'string') {
+        if (!membersSourceEns || typeof membersSourceEns !== 'string') {
           throw new Error('Invalid members source in configuration');
         }
 
-        return membersSource;
+        const membersSourceAddress = await publicClient.getEnsAddress({
+          name: membersSourceEns,
+        });
+
+        console.log({ membersSourceEns, membersSourceAddress });
+
+        return { ens: membersSourceEns, address: membersSourceAddress as Address };
       } catch (error) {
         console.error('Error fetching members source:', error);
         throw error;
@@ -70,13 +76,8 @@ export default function SubnameRegistrationPage() {
           throw new Error('Members source not available');
         }
 
-        // Resolve the ENS name to get the address
-        const followedAddress = await publicClient.getEnsResolver({
-          name: membersSource,
-        });
-
         // Fetch the follower state using the resolved address
-        return await fetchFollowerState(address, followedAddress);
+        return await fetchFollowerState(address, membersSource.address);
       } catch (error) {
         console.error('Error fetching follower state:', error);
         throw error;
@@ -98,10 +99,11 @@ export default function SubnameRegistrationPage() {
   const hasRegisteredSubname = !!existingSubname;
 
   const isAdmin = useMemo(() => {
-    return address && followerState?.addressFollower
-      ? isAddressEqual(followerState.addressFollower, address)
+    console.log(membersSource?.address, address);
+    return address && membersSource?.address
+      ? isAddressEqual(membersSource.address, address)
       : false;
-  }, [address, followerState?.addressFollower]);
+  }, [address, membersSource?.address]);
 
   // Render helper functions
   const renderOwnerContent = () => {
@@ -110,7 +112,7 @@ export default function SubnameRegistrationPage() {
     return (
       <>
         <AddAddressInputCard />
-        <ViewAllMembersCard members_source={membersSource} />
+        <ViewAllMembersCard members_source={membersSource.address} />
         <ViewAllSubdomainHolders />
         <ViewPendingTransactionsCard />
       </>
