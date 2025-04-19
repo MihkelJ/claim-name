@@ -509,6 +509,11 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
+"@justaname.id/hybrid-primary-name@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@justaname.id/hybrid-primary-name/-/hybrid-primary-name-0.0.7.tgz#0542fc4f47667f46be438331914ea873a053ffa1"
+  integrity sha512-j+WZwDSWcFwjj41DAGmrhnZeTNDjEp+C+f6EP/tAqkuCZul8TBPlFut7Zs285n9NfKKkSpSPTJ5tdvlNL53Y4A==
+
 "@justaname.id/react@0.3.184", "@justaname.id/react@^0.3.184":
   version "0.3.184"
   resolved "https://registry.yarnpkg.com/@justaname.id/react/-/react-0.3.184.tgz#4b0aba51c3d72992f56d7b5ffac41069eb0a2d0b"
