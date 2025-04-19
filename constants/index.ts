@@ -25,6 +25,8 @@ const CONSTANTS = {
   ENABLED_CHAIN_IDS:
     process.env.NEXT_PUBLIC_ENABLED_CHAIN_IDS?.split(',') ||
     Object.values(SUPPORTED_CHAINS).map((chain) => chain.id.toString()),
+
+  COMMUNITY_CONFIG_RECORD_KEY: 'me.yodl.community',
 };
 
 export default CONSTANTS;

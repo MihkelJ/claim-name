@@ -1,4 +1,4 @@
-import { justanameClient } from '@/config';
+import { justanameClient } from '@/config/server';
 import CONSTANTS from '@/constants';
 import { FollowerState, SubnameRoot } from '@/types/subname';
 import assert from 'assert';
@@ -7,14 +7,26 @@ import { mainnet } from 'viem/chains';
 /**
  * Checks if a user follows the top domain
  */
-export async function fetchFollowerState(address?: string) {
-  assert(Boolean(address), 'Address is required');
+export async function fetchFollowerState(
+  userAddress?: string,
+  followedAddress?: string,
+): Promise<FollowerState> {
+  assert(userAddress, 'Address is required');
+  assert(followedAddress, 'Address of members source is required');
 
-  const response = await fetch(
-    `https://api.ethfollow.xyz/api/v1/users/${address}/${CONSTANTS.ENS_DOMAIN}/followerState?cache=fresh`,
+  const url = new URL(
+    `https://api.ethfollow.xyz/api/v1/users/${userAddress}/${followedAddress}/followerState`,
   );
-  const followerState = (await response.json()) as FollowerState;
-  return followerState;
+  url.searchParams.append('cache', 'fresh');
+
+  const response = await fetch(url.toString());
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Failed to fetch follower state: ${response.status} ${errorText}`);
+  }
+
+  return (await response.json()) as FollowerState;
 }
 
 /**

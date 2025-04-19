@@ -12,6 +12,7 @@ import MembershipInviteCard from '@/components/MembershipInviteCard';
 import ViewPendingTransactionsCard from '@/components/PendingTransactionsCard';
 import { SubnameManagementForm } from '@/components/SubnameManagementForm';
 import ViewAllMembersCard from '@/components/ViewAllMembersCard';
+import { justanameClientFrontend, publicClient } from '@/config/client';
 import CONSTANTS from '@/constants';
 import { fetchFollowerState, getFollowerSubdomains } from '@/lib/services/subname';
 import { useQuery } from '@tanstack/react-query';
@@ -27,7 +28,42 @@ export default function SubnameRegistrationPage() {
     isFetched: isFetchedFollowerState,
   } = useQuery({
     queryKey: ['followerState', address],
-    queryFn: async () => await fetchFollowerState(address),
+    queryFn: async () => {
+      try {
+        // Fetch ENS records for the domain
+        const records = await justanameClientFrontend.subnames.getRecords({
+          ens: CONSTANTS.ENS_DOMAIN,
+        });
+
+        // Find the community configuration record
+        const configRecord = records.records.texts.find((record) =>
+          record.key.endsWith(CONSTANTS.COMMUNITY_CONFIG_RECORD_KEY),
+        );
+
+        if (!configRecord?.value) {
+          throw new Error('Community configuration not found');
+        }
+
+        // Parse the configuration
+        const configJson = JSON.parse(configRecord.value);
+        const membersSource = configJson?.members_source;
+
+        if (!membersSource || typeof membersSource !== 'string') {
+          throw new Error('Invalid members source in configuration');
+        }
+
+        // Resolve the ENS name to get the address
+        const followedAddress = await publicClient.getEnsResolver({
+          name: membersSource,
+        });
+
+        // Fetch the follower state using the resolved address
+        return await fetchFollowerState(address, followedAddress);
+      } catch (error) {
+        console.error('Error fetching follower state:', error);
+        throw error;
+      }
+    },
     enabled: !!address,
   });
 
