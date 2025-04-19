@@ -1,3 +1,4 @@
+import { justanameClient, privateClient } from '@/config/server';
 import CONSTANTS from '@/constants';
 import { addSubnameSchema } from '@/lib/schemas/subname';
 import { checkExistingSubname, fetchFollowerState, registerSubname } from '@/lib/services/subname';
@@ -22,9 +23,37 @@ export async function POST(req: NextRequest) {
 
     // 2. Check follower state (only if MEMBERS_ONLY is enabled)
     if (CONSTANTS.MEMBERS_ONLY) {
-      const isFollowing = await fetchFollowerState(address);
-      if (!isFollowing) {
-        throw new Error('You must follow the top domain to register a subdomain');
+      // Fetch ENS records for the domain
+      const records = await justanameClient.subnames.getRecords({
+        ens: CONSTANTS.ENS_DOMAIN,
+      });
+
+      // Find the community configuration record
+      const configRecord = records.records.texts.find((record) =>
+        record.key.endsWith(CONSTANTS.COMMUNITY_CONFIG_RECORD_KEY),
+      );
+
+      if (!configRecord?.value) {
+        throw new Error('Community configuration not found');
+      }
+
+      // Parse the configuration
+      const configJson = JSON.parse(configRecord.value);
+      const membersSource = configJson?.members_source;
+
+      if (!membersSource || typeof membersSource !== 'string') {
+        throw new Error('Invalid members source in configuration');
+      }
+
+      // Resolve the ENS name to get the address
+      const followedAddress = await privateClient.getEnsResolver({
+        name: membersSource,
+      });
+
+      // Fetch the follower state using the resolved address
+      const followerState = await fetchFollowerState(address, followedAddress);
+      if (!followerState.state.follow) {
+        throw new Error('Membership of the community required');
       }
     }
 

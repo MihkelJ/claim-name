@@ -38,6 +38,7 @@ const RevokeSubnameCard = ({ subname }: { subname?: string }) => {
               chainId: 1,
               username: username,
             });
+
             window.location.reload();
           }}
         >
