@@ -29,7 +29,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^0.2.1",
-    "ethereum-identity-kit": "^0.2.16",
+    "ethereum-identity-kit": "^0.2.35",
     "ethers": "^6.13.5",
     "lucide-react": "^0.484.0",
     "next": "15.2.4",
