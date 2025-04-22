@@ -41,10 +41,8 @@ export function useRegistrationForm() {
           CONSTANTS.ENABLED_CHAIN_IDS.length > 0 &&
           CONSTANTS.ENABLED_CHAIN_IDS.length !== Object.values(SUPPORTED_CHAINS).length
         ) {
-          console.log('here');
           yodlConfig.chains = CONSTANTS.ENABLED_CHAIN_IDS.join(',');
         } else {
-          console.log('here2');
         }
 
         if (CONSTANTS.ENABLED_TOKEN_SYMBOLS.length > 0) {

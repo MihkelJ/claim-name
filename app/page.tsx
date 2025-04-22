@@ -2,7 +2,6 @@
 
 import ConnectWalletCard from '../components/ConnectWalletCard';
 import { RegistrationForm } from '../components/RegistrationForm';
-import RevokeSubnameCard from '../components/RevokeSubnameCard';
 import { WalletCard } from '../components/WalletCard';
 import type { SubnameRoot } from '../types/subname';
 import AddAddressInputCard from '@/components/AddAddressInputCard';
@@ -10,6 +9,7 @@ import ENSProfileHeader from '@/components/ENSProfileHeader';
 import ViewFollowStatusCard from '@/components/FollowStatusCard';
 import MembershipInviteCard from '@/components/MembershipInviteCard';
 import ViewPendingTransactionsCard from '@/components/PendingTransactionsCard';
+import { RegisteredSubdomainSuccess } from '@/components/RegisteredSubdomainSuccess';
 import { SubnameManagementForm } from '@/components/SubnameManagementForm';
 import ViewAllMembersCard from '@/components/ViewAllMembersCard';
 import ViewAllSubdomainHolders from '@/components/ViewAllSubdomainHolders';
@@ -54,14 +54,13 @@ export default function SubnameRegistrationPage() {
           name: membersSourceEns,
         });
 
-        console.log({ membersSourceEns, membersSourceAddress });
-
         return { ens: membersSourceEns, address: membersSourceAddress as Address };
       } catch (error) {
         console.error('Error fetching members source:', error);
         throw error;
       }
     },
+    enabled: CONSTANTS.MEMBERS_ONLY,
   });
 
   const {
@@ -86,7 +85,7 @@ export default function SubnameRegistrationPage() {
     enabled: !!address && !!membersSource,
   });
 
-  const { data: subnameData } = useQuery<SubnameRoot>({
+  const { data: subnameData, isLoading: isLoadingSubname } = useQuery<SubnameRoot>({
     queryKey: ['subnames', address],
     queryFn: async () => await getFollowerSubdomains(address),
     enabled: !!address,
@@ -122,7 +121,11 @@ export default function SubnameRegistrationPage() {
   const renderFollowerContent = () => {
     if (!address || isAdmin) return null;
 
-    if (!isFetchedFollowerState) {
+    if (isLoadingSubname) {
+      return <div className="p-4 bg-white rounded-lg shadow">Loading subname data...</div>;
+    }
+
+    if (!isFetchedFollowerState && CONSTANTS.MEMBERS_ONLY) {
       // If owner, only show the FollowStatusCard but not the other follower content
       return (
         <ViewFollowStatusCard
@@ -134,27 +137,28 @@ export default function SubnameRegistrationPage() {
 
     return (
       <>
-        <ViewFollowStatusCard
-          isLoading={isLoadingFollowerStatus}
-          isFollowing={followerState?.state.follow}
-        />
+        {CONSTANTS.MEMBERS_ONLY && (
+          <ViewFollowStatusCard
+            isLoading={isLoadingFollowerStatus}
+            isFollowing={followerState?.state.follow}
+          />
+        )}
 
         {!hasRegisteredSubname && CONSTANTS.MEMBERS_ONLY && followerState?.state.follow && (
           <RegistrationForm />
         )}
+
         {!hasRegisteredSubname && !CONSTANTS.MEMBERS_ONLY && <RegistrationForm />}
 
         {CONSTANTS.MEMBERS_ONLY && !followerState?.state.follow && (
           <MembershipInviteCard address={address} />
         )}
-        {!CONSTANTS.MEMBERS_ONLY && hasRegisteredSubname && !followerState?.state.follow && (
-          <MembershipInviteCard address={address} />
-        )}
 
         {hasRegisteredSubname && (
           <>
+            <RegisteredSubdomainSuccess />
             <SubnameManagementForm existingSubname={existingSubname} />
-            <RevokeSubnameCard subname={existingSubname?.ens} />
+            {/* <RevokeSubnameCard subname={existingSubname?.ens} /> */}
           </>
         )}
 
@@ -174,6 +178,7 @@ export default function SubnameRegistrationPage() {
           <WalletCard
             isOwner={isAdmin}
             address={address}
+            subdomain={existingSubname?.ens}
           />
         )}
 

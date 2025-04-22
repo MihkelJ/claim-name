@@ -6,9 +6,10 @@ import { IoWalletOutline } from 'react-icons/io5';
 interface WalletCardProps {
   address: string;
   isOwner: boolean;
+  subdomain?: string;
 }
 
-export function WalletCard({ address, isOwner }: WalletCardProps) {
+export function WalletCard({ address, isOwner, subdomain }: WalletCardProps) {
   const { openAccountModal } = useAccountModal();
 
   return (
@@ -29,6 +30,7 @@ export function WalletCard({ address, isOwner }: WalletCardProps) {
             <span className="text-xs font-mono bg-secondary px-2 py-1 rounded-md">
               {`${address.slice(0, 6)}...${address.slice(-4)}`}
             </span>
+
             {isOwner && (
               <Badge
                 variant="success"
@@ -38,6 +40,14 @@ export function WalletCard({ address, isOwner }: WalletCardProps) {
               </Badge>
             )}
           </div>
+          {subdomain && (
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-muted-foreground">Subdomain:</span>
+              <span className="text-xs font-mono bg-secondary px-2 py-1 rounded-md">
+                {subdomain}
+              </span>
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>
