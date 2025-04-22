@@ -2,8 +2,23 @@
 
 import CONSTANTS from '@/constants';
 import { JustaNameProvider, JustaNameProviderConfig } from '@justaname.id/react';
-import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import { connectorsForWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import '@rainbow-me/rainbowkit/styles.css';
+import {
+  argentWallet,
+  braveWallet,
+  coinbaseWallet,
+  imTokenWallet,
+  injectedWallet,
+  ledgerWallet,
+  metaMaskWallet,
+  okxWallet,
+  phantomWallet,
+  rabbyWallet,
+  safeWallet,
+  trustWallet,
+  walletConnectWallet,
+} from '@rainbow-me/rainbowkit/wallets';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { TransactionModal, TransactionProvider } from 'ethereum-identity-kit';
 import 'ethereum-identity-kit/css';
@@ -13,10 +28,36 @@ import { base, mainnet, sepolia } from 'wagmi/chains';
 
 export const queryClient = new QueryClient();
 
-const { connectors } = getDefaultWallets({
-  appName: CONSTANTS.APP_NAME,
-  projectId: CONSTANTS.WALLET_CONNECT_PROJECT_ID,
-});
+const connectors = connectorsForWallets(
+  [
+    {
+      groupName: 'Suggested',
+      wallets: [coinbaseWallet],
+    },
+
+    {
+      groupName: 'Other',
+      wallets: [
+        rabbyWallet,
+        phantomWallet,
+        walletConnectWallet,
+        injectedWallet,
+        metaMaskWallet,
+        trustWallet,
+        ledgerWallet,
+        okxWallet,
+        braveWallet,
+        argentWallet,
+        safeWallet,
+        imTokenWallet,
+      ],
+    },
+  ],
+  {
+    appName: CONSTANTS.APP_NAME,
+    projectId: CONSTANTS.WALLET_CONNECT_PROJECT_ID,
+  },
+);
 
 const config = createConfig({
   chains: [mainnet, sepolia, base],
