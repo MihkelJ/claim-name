@@ -11,7 +11,7 @@ const ConnectWalletCard = () => {
       <CardHeader>
         <CardTitle>Get Started</CardTitle>
         <CardDescription>
-          Connect your account to get your subdomain at {CONSTANTS.ENS_DOMAIN}
+          Connect your account to get your new {CONSTANTS.ENS_DOMAIN} subdomain
         </CardDescription>
       </CardHeader>
       <CardContent>

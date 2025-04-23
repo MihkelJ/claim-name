@@ -86,6 +86,7 @@ const justaNameConfig: JustaNameProviderConfig = {
   config: {
     domain: CONSTANTS.APP_DOMAIN,
     origin: CONSTANTS.APP_ORIGIN,
+    subnameChallengeTtl: 10 * 60 * 1000, // 10 minutes
   },
 };
 
