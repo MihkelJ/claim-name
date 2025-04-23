@@ -4,6 +4,7 @@ import { usernameSchema } from '@/lib/schemas/username';
 import { useBaseForm } from '@/lib/utils/useBaseForm';
 import { useAddSubname, useIsSubnameAvailable } from '@justaname.id/react';
 import { useDebounce } from '@uidotdev/usehooks';
+import { mainnet } from 'viem/chains';
 import { z } from 'zod';
 
 const registrationSchema = z.object({
@@ -15,7 +16,7 @@ type RegistrationFormData = z.infer<typeof registrationSchema>;
 export function useRegistrationForm() {
   const { addSubname } = useAddSubname();
 
-  const { form, handleError } = useBaseForm<RegistrationFormData>({
+  const { form, handleError, error } = useBaseForm<RegistrationFormData>({
     schema: registrationSchema,
     defaultValues: {
       username: undefined,
@@ -56,6 +57,7 @@ export function useRegistrationForm() {
         ensDomain: CONSTANTS.ENS_DOMAIN,
         username: data.username.toLowerCase(),
         text: textConfig,
+        chainId: mainnet.id,
       });
       window.location.reload();
     } catch (error) {
@@ -66,7 +68,7 @@ export function useRegistrationForm() {
   return {
     form,
     isSubmitting: form.formState.isSubmitting,
-    error: form.formState.errors.username?.message,
+    error: form.formState.errors.username?.message || error,
     handleSubmit,
     isSubnameAvailable,
     debouncedUsername,

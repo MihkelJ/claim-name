@@ -23,9 +23,13 @@ export function useBaseForm<T extends FieldValues>({
     if (onError) {
       onError(error);
     } else {
+      // Get actual error message if available
+      const errorMessage =
+        error instanceof Error ? error.message : 'An error occurred. Please try again.';
+
       form.setError('root', {
         type: 'manual',
-        message: 'An error occurred. Please try again.',
+        message: errorMessage,
       });
     }
   };
