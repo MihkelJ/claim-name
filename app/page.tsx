@@ -60,7 +60,6 @@ export default function SubnameRegistrationPage() {
         throw error;
       }
     },
-    enabled: CONSTANTS.MEMBERS_ONLY,
   });
 
   const {
