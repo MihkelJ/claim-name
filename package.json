@@ -14,7 +14,7 @@
   "dependencies": {
     "@hookform/resolvers": "^4.1.3",
     "@justaname.id/hybrid-primary-name": "^0.0.7",
-    "@justaname.id/react": "^0.3.186",
+    "@justaname.id/react": "^0.3.192",
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-popover": "^1.0.7",
@@ -23,7 +23,7 @@
     "@rainbow-me/rainbowkit": "^2.2.4",
     "@tanstack/react-query": "^5.69.0",
     "@uidotdev/usehooks": "^2.4.1",
-    "@yodlpay/tokenlists": "^0.8.12",
+    "@yodlpay/tokenlists": "^0.8.13",
     "@yudiel/react-qr-scanner": "^2.2.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

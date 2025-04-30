@@ -495,29 +495,29 @@
   resolved "https://registry.npmjs.org/@justaname.id/hybrid-primary-name/-/hybrid-primary-name-0.0.7.tgz"
   integrity sha512-j+WZwDSWcFwjj41DAGmrhnZeTNDjEp+C+f6EP/tAqkuCZul8TBPlFut7Zs285n9NfKKkSpSPTJ5tdvlNL53Y4A==
 
-"@justaname.id/react@^0.3.186":
-  version "0.3.186"
-  resolved "https://registry.yarnpkg.com/@justaname.id/react/-/react-0.3.186.tgz#6446a8fd9a6b603ea79bc9132ecabd53a10d73b3"
-  integrity sha512-SagV1xgO0uHHmzXGI7pem27kJzONfk4ANBADjclfLPpgPH3udDmfhJNUX8dXlD5l3RUDfHE9CBtav4fcN03E5g==
+"@justaname.id/react@^0.3.192":
+  version "0.3.192"
+  resolved "https://registry.yarnpkg.com/@justaname.id/react/-/react-0.3.192.tgz#6b599da1b85ced2fb34b9d5bfd90665a049af7b4"
+  integrity sha512-ks05mRkL3Go1SGfJZRnDZxElyrwa/8Jyg88eoI1m9x7PaSfDrGaDn23sLBuoGJUC1cMGIFwKjGURgp2bu5tt0Q==
   dependencies:
     "@ensdomains/ensjs" "4.0.2"
-    "@justaname.id/sdk" "0.2.183"
+    "@justaname.id/sdk" "0.2.189"
     axios "^1.6.0"
     qs "^6.12.0"
 
-"@justaname.id/sdk@0.2.183":
-  version "0.2.183"
-  resolved "https://registry.yarnpkg.com/@justaname.id/sdk/-/sdk-0.2.183.tgz#ba45d950f4033e18216e3dc5cf478823f64d7345"
-  integrity sha512-qYFwe9f0dxpkzcRv5YWGvWXVuPYvOWFKBvj5dvXfMxrhBBeMPgDB/Ps+77c6VOPZwneKgAmINwwQ9HbIbn8C7A==
+"@justaname.id/sdk@0.2.189":
+  version "0.2.189"
+  resolved "https://registry.yarnpkg.com/@justaname.id/sdk/-/sdk-0.2.189.tgz#e1fcc9c70aba2b9134e6f530bf89f37900c8dfdf"
+  integrity sha512-PP/kvo1TDr+atsXZmRBPLC4HSJ50W7Lkc5wKrnCdMeRTCx4Bo1HCTrh2dT9ftIpmCzCfvDkDwMBsMB/p/5xZBQ==
   dependencies:
-    "@justaname.id/siwens" "0.0.116"
+    "@justaname.id/siwens" "0.0.122"
     axios "^1.6.0"
     qs "^6.12.0"
 
-"@justaname.id/siwens@0.0.116":
-  version "0.0.116"
-  resolved "https://registry.yarnpkg.com/@justaname.id/siwens/-/siwens-0.0.116.tgz#5f62a7e21a4d51c7e9f649ef5f974ea4683c1ee6"
-  integrity sha512-9htX+xqqVt67+ZLxfgxsHhSxI9MpTqXiOpd43fQWgHLktuPRMwVq/S3DOBNSbSd05MRThGTiKb6RV1E6B/Cm6Q==
+"@justaname.id/siwens@0.0.122":
+  version "0.0.122"
+  resolved "https://registry.yarnpkg.com/@justaname.id/siwens/-/siwens-0.0.122.tgz#5b7f2c2c7d785b17086808d572fc039852390177"
+  integrity sha512-vn0o8Mum3GqCuz89KutON8u1mWBgWu+JFguj1yJgf1ZUlKHF4/qOBKlF7rpzTGvMWGDmgouwR3wlqdA5yT0Alw==
 
 "@leichtgewicht/ip-codec@^2.0.1":
   version "2.0.5"
@@ -2092,10 +2092,10 @@
     "@walletconnect/window-getters" "^1.0.1"
     tslib "1.14.1"
 
-"@yodlpay/tokenlists@^0.8.12":
-  version "0.8.12"
-  resolved "https://registry.npmjs.org/@yodlpay/tokenlists/-/tokenlists-0.8.12.tgz"
-  integrity sha512-wg6nGa28scp+T0f8MnrYHauvW76bsrwb/y7Mr4N7dP5vXM8z39gJGqwe7N/5pDPVdIFyVzFK6T+MO74zTG1GCQ==
+"@yodlpay/tokenlists@^0.8.13":
+  version "0.8.13"
+  resolved "https://registry.yarnpkg.com/@yodlpay/tokenlists/-/tokenlists-0.8.13.tgz#a1a521579a509551d06536d3458ede2d86843a88"
+  integrity sha512-KJGP0kr427afuFtgYRzTYcbKOPwx1mD1nTqkr8P9rOLJJcNZRpyV5g5bO/hzYd+/ZENUO7nqEQEdGGBMNwMs8A==
 
 "@yudiel/react-qr-scanner@^2.2.1":
   version "2.2.1"
