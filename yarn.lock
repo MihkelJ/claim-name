@@ -495,29 +495,29 @@
   resolved "https://registry.npmjs.org/@justaname.id/hybrid-primary-name/-/hybrid-primary-name-0.0.7.tgz"
   integrity sha512-j+WZwDSWcFwjj41DAGmrhnZeTNDjEp+C+f6EP/tAqkuCZul8TBPlFut7Zs285n9NfKKkSpSPTJ5tdvlNL53Y4A==
 
-"@justaname.id/react@^0.3.192":
-  version "0.3.192"
-  resolved "https://registry.yarnpkg.com/@justaname.id/react/-/react-0.3.192.tgz#6b599da1b85ced2fb34b9d5bfd90665a049af7b4"
-  integrity sha512-ks05mRkL3Go1SGfJZRnDZxElyrwa/8Jyg88eoI1m9x7PaSfDrGaDn23sLBuoGJUC1cMGIFwKjGURgp2bu5tt0Q==
+"@justaname.id/react@^0.3.194":
+  version "0.3.194"
+  resolved "https://registry.yarnpkg.com/@justaname.id/react/-/react-0.3.194.tgz#9e37eb992655c451c472bf25e61693e4e53dddb1"
+  integrity sha512-WQ4FpBGmysji+uQlQ+BaqzQOGaPbz7vrVLDQeJ7dDkld9jtSoubYRJEmckC3VLwqFoUZWyub9/8Z2rq+CI7SRA==
   dependencies:
     "@ensdomains/ensjs" "4.0.2"
-    "@justaname.id/sdk" "0.2.189"
-    axios "^1.6.0"
-    qs "^6.12.0"
+    "@justaname.id/sdk" "0.2.191"
+    axios "1.6.0"
+    qs "6.12.0"
 
-"@justaname.id/sdk@0.2.189":
-  version "0.2.189"
-  resolved "https://registry.yarnpkg.com/@justaname.id/sdk/-/sdk-0.2.189.tgz#e1fcc9c70aba2b9134e6f530bf89f37900c8dfdf"
-  integrity sha512-PP/kvo1TDr+atsXZmRBPLC4HSJ50W7Lkc5wKrnCdMeRTCx4Bo1HCTrh2dT9ftIpmCzCfvDkDwMBsMB/p/5xZBQ==
+"@justaname.id/sdk@0.2.191":
+  version "0.2.191"
+  resolved "https://registry.yarnpkg.com/@justaname.id/sdk/-/sdk-0.2.191.tgz#808c734904dd866915464c8c190ed26c7e440c75"
+  integrity sha512-x74c521gv14h9ApdYpruqKcS5ckzu54PpsyPoyeXBtIdchgypOXjkydzYTqSiMrH7uw8xDbfV5qrUwt56SZmFw==
   dependencies:
-    "@justaname.id/siwens" "0.0.122"
-    axios "^1.6.0"
-    qs "^6.12.0"
+    "@justaname.id/siwens" "0.0.124"
+    axios "1.6.0"
+    qs "6.12.0"
 
-"@justaname.id/siwens@0.0.122":
-  version "0.0.122"
-  resolved "https://registry.yarnpkg.com/@justaname.id/siwens/-/siwens-0.0.122.tgz#5b7f2c2c7d785b17086808d572fc039852390177"
-  integrity sha512-vn0o8Mum3GqCuz89KutON8u1mWBgWu+JFguj1yJgf1ZUlKHF4/qOBKlF7rpzTGvMWGDmgouwR3wlqdA5yT0Alw==
+"@justaname.id/siwens@0.0.124":
+  version "0.0.124"
+  resolved "https://registry.yarnpkg.com/@justaname.id/siwens/-/siwens-0.0.124.tgz#e877961260a5c91c5ba4cc37482bbae2f10d0a3e"
+  integrity sha512-BtXFTlIvJon0K4zQiUl9EBZHJOTwy/h1fIp+8ixt6XIq+HZ+k2UMHIq7tjni/gFkRtYz9E9N4zkZT0jj5oFCdA==
 
 "@leichtgewicht/ip-codec@^2.0.1":
   version "2.0.5"
@@ -2092,10 +2092,10 @@
     "@walletconnect/window-getters" "^1.0.1"
     tslib "1.14.1"
 
-"@yodlpay/tokenlists@^0.8.13":
-  version "0.8.13"
-  resolved "https://registry.yarnpkg.com/@yodlpay/tokenlists/-/tokenlists-0.8.13.tgz#a1a521579a509551d06536d3458ede2d86843a88"
-  integrity sha512-KJGP0kr427afuFtgYRzTYcbKOPwx1mD1nTqkr8P9rOLJJcNZRpyV5g5bO/hzYd+/ZENUO7nqEQEdGGBMNwMs8A==
+"@yodlpay/tokenlists@^0.8.15":
+  version "0.8.15"
+  resolved "https://registry.yarnpkg.com/@yodlpay/tokenlists/-/tokenlists-0.8.15.tgz#d378f480a359b79600916fbd3a106794f47224c2"
+  integrity sha512-Bg8pNzxthTWQ0PDczzfSeO7PWYc7grG4COi8vDsNqLfPLQmAondjq9aL8cUcXfsHmlvkfHGk20+TqLV+MFYu+w==
 
 "@yudiel/react-qr-scanner@^2.2.1":
   version "2.2.1"
@@ -2305,12 +2305,12 @@ axe-core@^4.10.0:
   resolved "https://registry.npmjs.org/axe-core/-/axe-core-4.10.3.tgz"
   integrity sha512-Xm7bpRXnDSX2YE2YFfBk2FnF0ep6tmG7xPh8iHee8MIcrgq762Nkce856dYtJYLkuIoYZvGfTs/PbZhideTcEg==
 
-axios@^1.6.0:
-  version "1.8.4"
-  resolved "https://registry.npmjs.org/axios/-/axios-1.8.4.tgz"
-  integrity sha512-eBSYY4Y68NNlHbHBMdeDmKNtDgXWhQsJcGqzO3iLUM0GraQFSS9cVgPX5I9b3lbdFKyYoAEGAZF1DwhTaljNAw==
+axios@1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.6.0.tgz#f1e5292f26b2fd5c2e66876adc5b06cdbd7d2102"
+  integrity sha512-EZ1DYihju9pwVB+jg67ogm+Tmqc6JmhamRN6I4Zt8DfZu5lbcQGw3ozH9lFejSJgs/ibaef3A9PMXPLeefFGJg==
   dependencies:
-    follow-redirects "^1.15.6"
+    follow-redirects "^1.15.0"
     form-data "^4.0.0"
     proxy-from-env "^1.1.0"
 
@@ -3264,10 +3264,10 @@ ethereum-cryptography@^2.0.0:
     "@scure/bip32" "1.4.0"
     "@scure/bip39" "1.3.0"
 
-ethereum-identity-kit@^0.2.35:
-  version "0.2.35"
-  resolved "https://registry.npmjs.org/ethereum-identity-kit/-/ethereum-identity-kit-0.2.35.tgz"
-  integrity sha512-V3p7KRAn4r4C5a/OOyxAnTZDkUD9/ksNhVqluFXR78fzQspmsdSTeh+iAflubGXWa4n0BFcfqDIoCI3faH/9Zw==
+ethereum-identity-kit@^0.2.39:
+  version "0.2.39"
+  resolved "https://registry.yarnpkg.com/ethereum-identity-kit/-/ethereum-identity-kit-0.2.39.tgz#fa54946b63ec2bbfb3452f3825ec2c0d5ff182fd"
+  integrity sha512-2qSVInUER18so3xfKmbNwmpTWm+wtn+RShdotPFBSurecX+yg1NhtuuUwY7/fFzdpL8SBY6uoXSzDqPyUgwupQ==
 
 ethers@^6.13.5:
   version "6.13.5"
@@ -3412,9 +3412,9 @@ flatted@^3.2.9:
   resolved "https://registry.npmjs.org/flatted/-/flatted-3.3.3.tgz"
   integrity sha512-GX+ysw4PBCz0PzosHDepZGANEuFCMLrnRTiEy9McGjmkCQYwRq4A/X786G/fjM/+OjsWSU1ZrY5qyARZmO/uwg==
 
-follow-redirects@^1.15.6:
+follow-redirects@^1.15.0:
   version "1.15.9"
-  resolved "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.9.tgz"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.9.tgz#a604fa10e443bf98ca94228d9eebcc2e8a2c8ee1"
   integrity sha512-gew4GsXizNgdoRyqmyfMHyAmXsZDk6mHkSxZFCzW9gwlbtOW44CDtYavM+y+72qD/Vq2l550kMF52DT8fOLJqQ==
 
 for-each@^0.3.3, for-each@^0.3.5:
@@ -4724,12 +4724,12 @@ qrcode@1.5.4:
     pngjs "^5.0.0"
     yargs "^15.3.1"
 
-qs@^6.12.0:
-  version "6.14.0"
-  resolved "https://registry.npmjs.org/qs/-/qs-6.14.0.tgz"
-  integrity sha512-YWWTjgABSKcvs/nWBi9PycY/JiPJqOD4JA6o9Sej2AtvSGarXxKC3OQSk4pAarbdQlKAh5D4FCQkJNkW+GAn3w==
+qs@6.12.0:
+  version "6.12.0"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.12.0.tgz#edd40c3b823995946a8a0b1f208669c7a200db77"
+  integrity sha512-trVZiI6RMOkO476zLGaBIzszOdFPnCCXHPG9kn0yuS1uz6xdVxPfZdB3vUig9pxPFDM9BRAgz/YUIVQ1/vuiUg==
   dependencies:
-    side-channel "^1.1.0"
+    side-channel "^1.0.6"
 
 query-string@7.1.3:
   version "7.1.3"
@@ -5148,9 +5148,9 @@ side-channel-weakmap@^1.0.2:
     object-inspect "^1.13.3"
     side-channel-map "^1.0.1"
 
-side-channel@^1.1.0:
+side-channel@^1.0.6, side-channel@^1.1.0:
   version "1.1.0"
-  resolved "https://registry.npmjs.org/side-channel/-/side-channel-1.1.0.tgz"
+  resolved "https://registry.yarnpkg.com/side-channel/-/side-channel-1.1.0.tgz#c3fcff9c4da932784873335ec9765fa94ff66bc9"
   integrity sha512-ZX99e6tRweoUXqR+VBrslhda51Nh5MTQwou5tnUDgbtyM0dBgmhEDtWGP/xbKn6hqfPRHujUNwz5fy/wbbhnpw==
   dependencies:
     es-errors "^1.3.0"
