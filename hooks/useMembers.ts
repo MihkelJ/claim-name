@@ -14,7 +14,7 @@ export interface Following {
 
 const getMembers = async (addressOrEns: string) => {
   const response = await fetch(
-    `https://api.ethfollow.xyz/api/v1/users/${addressOrEns}/following?cache=fresh`,
+    `https://api.ethfollow.xyz/api/v1/users/${addressOrEns}/following?cache=fresh&limit=100`,
   );
   return response.json() as Promise<Root>;
 };
