@@ -1,7 +1,7 @@
 import { SUPPORTED_CHAINS } from './chains';
 import { mainnet } from 'viem/chains';
 
-const ENABLED_TOKEN_SYMBOLS = process.env.NEXT_PUBLIC_ENABLED_TOKEN_SYMBOLS?.split(',');
+const ENABLED_TOKEN_SYMBOLS = process.env.NEXT_PUBLIC_ENABLED_TOKEN_SYMBOLS?.split(',') || [];
 
 if (ENABLED_TOKEN_SYMBOLS === undefined) {
   throw new Error('NEXT_PUBLIC_ENABLED_TOKEN_SYMBOLS is not set');
