@@ -1,5 +1,4 @@
 import { SUPPORTED_CHAINS } from './chains';
-import { mainnet } from 'viem/chains';
 
 const ENABLED_TOKEN_SYMBOLS = process.env.NEXT_PUBLIC_ENABLED_TOKEN_SYMBOLS?.split(',') || [];
 
@@ -17,7 +16,7 @@ const CONSTANTS = {
   ENS_DOMAIN: process.env.NEXT_PUBLIC_ENS_DOMAIN!,
   ENS_API_KEY: process.env.NEXT_PUBLIC_ENS_API_KEY!,
 
-  MAINNET_RPC_URL: process.env.NEXT_PUBLIC_MAINNET_RPC_URL || mainnet.rpcUrls.default.http[0],
+  MAINNET_RPC_URL: process.env.NEXT_PUBLIC_MAINNET_RPC_URL || 'https://eth.blockrazor.xyz',
 
   MEMBERS_ONLY: process.env.NEXT_PUBLIC_MEMBERS_ONLY === 'true',
 
