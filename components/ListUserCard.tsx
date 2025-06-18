@@ -17,14 +17,6 @@ import { useCallback, useMemo } from 'react';
 import { MdPerson } from 'react-icons/md';
 import { Address } from 'viem';
 
-const OPTIONS = [
-  { label: 'Architect', value: 'architect' },
-  { label: 'Explorer', value: 'explorer' },
-  { label: 'Enthusiast', value: 'enthusiast' },
-  { label: 'Admin', value: 'admin' },
-  { label: 'Core Team', value: 'core-team' },
-];
-
 const ListUserCard = ({ address, ownerAddress }: { address: Address; ownerAddress: Address }) => {
   const { addListOpsTransaction, pendingTxs, removeListOpsTransaction } = useTransactions();
 
@@ -79,13 +71,15 @@ const ListUserCard = ({ address, ownerAddress }: { address: Address; ownerAddres
         {displayName}
       </div>
       <div className="flex items-center gap-2">
-        <MultiSelect
-          options={OPTIONS}
-          value={userValue}
-          onValueChange={handleValueChange}
-          placeholder="Add tags..."
-          searchable={true}
-        />
+        {CONSTANTS.USER_TAGS.length > 0 && (
+          <MultiSelect
+            options={CONSTANTS.USER_TAGS}
+            value={userValue}
+            onValueChange={handleValueChange}
+            placeholder="Add tags..."
+            searchable={true}
+          />
+        )}
         <Button
           size="sm"
           variant="outline"

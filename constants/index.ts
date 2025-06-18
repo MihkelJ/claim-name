@@ -1,4 +1,5 @@
 import { SUPPORTED_CHAINS } from './chains';
+import { parseUserTags } from '@/lib/schemas/userTags';
 
 const ENABLED_TOKEN_SYMBOLS = process.env.NEXT_PUBLIC_ENABLED_TOKEN_SYMBOLS?.split(',') || [];
 
@@ -26,6 +27,8 @@ const CONSTANTS = {
     Object.values(SUPPORTED_CHAINS).map((chain) => chain.id.toString()),
 
   COMMUNITY_CONFIG_RECORD_KEY: 'me.yodl.community',
+
+  USER_TAGS: parseUserTags(process.env.NEXT_PUBLIC_USER_TAGS),
 };
 
 export default CONSTANTS;
